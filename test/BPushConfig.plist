@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>qtC9fssfeF3tGmGCynxY0sHE</string>
+	<key>API_KEY_inside</key>
+	<string>j9bZ9x0BxNDfGbYccjG5zeGG</string>
+	<key>API_KEY_outside</key>
+	<string>qtC9fssfeF3tGmGCynxY0sHE</string>
+	<key>DEBUG</key>
+	<false/>
+	<key>PRODUCTION_MODE</key>
+	<true/>
+</dict>
+</plist>

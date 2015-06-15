@@ -6,4 +6,44 @@
 
 #ifdef __OBJC__
     #import <Foundation/Foundation.h>
+//    #define XiaoTang  1   //小唐
+//    #define XiaoHe    1   //小何
+    //#define intranet9 1   //点9
+    #define Extranet    1   //外网
+
+#define SERVER_PORT (UInt16)8001        //服务端口（固定）
+#define OFFLINE_IP @"192.168.0.108"     //主机离线模式IP地址（硬件固定）
+
+#ifdef XiaoTang
+    #define AutoType (int)0                 //(1:自动,0:手动)
+    #define k_host @"http://192.168.11.169:8088"        //默认域名根地址
+    #define k_res_host @"http://192.168.11.169:8088"    //资源地址
+    #define ONLINE_IP @"192.168.11.169"         //主机远程模式IP地址（以服务器IP为准）
+#elif XiaoHe
+    #define AutoType (int)0
+    #define k_host @"http://192.168.11.188:8013"
+    #define k_res_host @"http://192.168.11.188:8013"
+    #define ONLINE_IP @"192.168.11.188"
+#elif intranet9
+    #define AutoType (int)0
+    #define k_host @"http://192.168.11.9:8086"
+    #define k_res_host @"http://192.168.11.9:8086"
+    #define ONLINE_IP @"192.168.11.9"
+#else
+    #define AutoType (int)1                 //(1:自动,0:手动)
+    #define k_host @"http://121.201.17.130:8100"
+    #define k_res_host @"http://res.weicontrol.cn"
+    #define ONLINE_IP @"121.201.17.130"
+#endif
+
+#define k_action @"api"                         //默认动作根目录
+
+#define DB_PIndexName @"IRCode.db"              //PIndex索引
+#define QQ_AppId  @"1104237986"                         //QQ登录ID
+
+#define WX_AppId  @"wxb941134c8fd0006c"                 //WX登录ID
+#define WX_AppSecret  @"884e67bdc88a879d7bff5230c51df475"       //WX_AppSecret
+
+#define HostAPSSID @"iFace_"    //主机WiFi——SSID
+
 #endif
