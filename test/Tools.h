@@ -6,6 +6,8 @@
 //  Copyright (c) 2014年 caidan. All rights reserved.
 //
 
+#define varString(var) [NSString stringWithFormat:@"%s",#var]
+
 #import <Foundation/Foundation.h>
 #import "TestHeads.h"
 
@@ -49,10 +51,14 @@ CGFloat *colorWithHex(NSString *stringToConvert);
 + (NSString *)encryptString:(NSString *)str;
 + (NSString *)encryptFrom:(NSString *)str;
 
++ (NSString *)encryptMacHost:(NSString *)host;//加密成主机二维码
+
 //重命名文件
 +(BOOL)RenameAtPath:(NSString *)FilePath newName:(NSString *)newName;
 //根据扩展名替换
 +(BOOL)RenameAtPath:(NSString *)FilePath suffixName:(NSString *)oldName toSuffixName:(NSString *)newName;
+
++ (BOOL)evaluateWith:(id)object format:(NSString *)regex;
 
 +(BOOL)otherOperation:(NSString *)FilePath suffixName:(NSString *)oldName toSuffixName:(NSString *)newName;
 
@@ -121,6 +127,7 @@ NSString* getPartString(NSString *string,NSString *aString,NSString *bString);
 - (NSString *)nameWithInstance:(id)instance;
 //解析域名
 + (char *)parseDomain:(NSString *)domain;
++ (NSString *)parserDomain:(NSString *)domain;
 
 @end
 
@@ -153,6 +160,11 @@ NSString* getPartString(NSString *string,NSString *aString,NSString *bString);
 
 - (NSDate *)dateWithFormat:(NSString *)format;
 
+//获取第一个字符
+- (NSString *)firstString;
+
+- (BOOL)evaluateWithFormat:(NSString *)regex;
+
 @end
 
 #pragma mark NSArray
@@ -169,6 +181,8 @@ NSString* getPartString(NSString *string,NSString *aString,NSString *bString);
 - (NSString *)convertToString;
 - (NSString *)stringUsingEncoding:(NSStringEncoding)encoding;
 
+#pragma mark 十六进制data转字符
+- (NSString *)hexString;
 - (NSString *)dataBytes2HexStr;
 
 #pragma mark 数据分割

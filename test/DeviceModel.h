@@ -7,17 +7,23 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "EnumTypes.h"
 
 @interface DeviceModel : NSObject
 
-@property (assign, nonatomic) int ID; //记录ID
-//@property (retain, nonatomic) NSString *deviceID; //设备MAC ID（不带符号拼接的的MAC地址）
-//@property (retain, nonatomic) NSString *imgHead; //背景图片
+@property (assign, nonatomic) int ID; //本地记录ID
+@property (assign, nonatomic) int remoteID; //服务器记录ID
+@property (assign, nonatomic) int UserID; //用户ID
+@property (retain, nonatomic) NSString *deviceID; //设备MAC ID（不带符号拼接的的MAC地址）
+@property (retain, nonatomic) NSString *PWD;    //设备密码
+@property (retain, nonatomic) NSString *imgFace; //背景图片
 @property (retain, nonatomic) NSString *Name;       //设备名称（别名）
-@property (retain, nonatomic) NSString *imgFace;
+@property (retain, nonatomic) NSString *imgName;
 @property (retain, nonatomic) NSData *InfraredData; //数据（存放的是红外数据编码）
-//@property (nonatomic) int Type;   //设备类型
-//@property (nonatomic) int switchType;   //开关类型
+@property (nonatomic) Enum_DeviceType Type;   //设备类型
+@property (nonatomic) Enum_SwitchType switchType;   //开关类型
+
+@property (nonatomic) Enum_DataMark DataMark;   //上传标记
 
 + (void)createTable;
 #pragma mark 根据sql拿取数据

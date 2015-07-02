@@ -512,10 +512,35 @@ NSString *pooledString(NSString *aString,NSString *bString,NSString *midString)
     return NO;
 }
 
-+(NSString *)ParseWith:(NSString *)content encoding:(NSStringEncoding)encoding
++ (NSString *)ParseWith:(NSString *)content encoding:(NSStringEncoding)encoding
 {
     NSString *result = [content stringByReplacingPercentEscapesUsingEncoding:encoding];
     return result;
+}
+
++ (NSString *)a
+{
+    NSString *string = @"<p>讨厌的节点<br/></p>";
+    
+    /*此处将不想要的字符全部放进characterSet1中，不需另外加逗号或空格之类的，除非字符串中有你想要去除的空格，此处< p /等都是单独存在，不作为整个字符*/
+    
+    NSCharacterSet *characterSet1 = [NSCharacterSet characterSetWithCharactersInString:@"<p/brh>"];
+    
+    // 将string1按characterSet1中的元素分割成数组
+    
+    NSArray *list = [string componentsSeparatedByCharactersInSet:characterSet1];
+    
+    for(NSString *string1 in list)
+    {
+        if ([string1 length]>0) {
+            
+            // 此处string即为中文字符串
+            
+            NSLog(@"string = %@",string1);
+        }
+    }
+    
+    return list.firstObject;
 }
 
 + (NSDictionary *)readCustomPath
@@ -618,6 +643,13 @@ NSString *pooledString(NSString *aString,NSString *bString,NSString *midString)
     return string;
 }
 
++ (NSString *)encryptMacHost:(NSString *)host
+{
+    NSString *result = [NSString format:@"device:host;content:%@;ver:1.0",host];
+    result = [Tools encryptFrom:result];
+    return result;
+}
+
 //重命名文件
 +(BOOL)RenameAtPath:(NSString *)FilePath newName:(NSString *)newName
 {
@@ -682,6 +714,13 @@ NSString *pooledString(NSString *aString,NSString *bString,NSString *midString)
     }
     
     return NO;
+}
+
++ (BOOL)evaluateWith:(id)object format:(NSString *)regex
+{
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex];
+    BOOL isValid = [predicate evaluateWithObject:object];
+    return isValid;
 }
 
 + (void)OPTIONS
@@ -1043,6 +1082,15 @@ NSString* getPartString(NSString *string,NSString *aString,NSString *bString)
     return IP;
 }
 
++ (NSString *)parserDomain:(NSString *)domain
+{
+    char *IP = [self parseDomain:domain];
+    if (IP) {
+        return [NSString stringWithUTF8String:IP];
+    }
+    return nil;
+}
+
 @end
 
 #pragma mark - ---------NSString---------------------
@@ -1237,6 +1285,24 @@ NSString* getPartString(NSString *string,NSString *aString,NSString *bString)
     return date;
 }
 
+//获取第一个字符
+- (NSString *)firstString
+{
+    if (self.length > 1) {
+        NSString *result = [self substringToIndex:1];
+        return result;
+    }
+    
+    return self;
+}
+
+- (BOOL)evaluateWithFormat:(NSString *)regex
+{
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex];
+    BOOL isValid = [predicate evaluateWithObject:self];
+    return isValid;
+}
+
 @end
 
 #pragma mark - --------NSArray----------------------
@@ -1297,6 +1363,17 @@ NSString* getPartString(NSString *string,NSString *aString,NSString *bString)
     }
     
     return hexStr;
+}
+
+#pragma mark 十六进制data转字符
+- (NSString *)hexString
+{
+    NSString *dataStr = self.description;
+    dataStr = [dataStr substringFromIndex:1];
+    dataStr = [dataStr substringToIndex:dataStr.length-1];
+    dataStr = [dataStr stringByReplacingOccurrencesOfString:@" " withString:@""];
+    dataStr = [dataStr uppercaseString];
+    return dataStr;
 }
 
 #pragma mark 数据分割

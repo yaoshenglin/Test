@@ -33,6 +33,7 @@
 		E26F7AD61ABFB8FA001B4E3C /* DeviceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E26F7AD51ABFB8FA001B4E3C /* DeviceModel.m */; };
 		E27ACE211AFDDBDB00E8621D /* HTTPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = E27ACE201AFDDBDB00E8621D /* HTTPRequest.m */; };
 		E2AF3AC11B12B9DD00EA0333 /* Ping.m in Sources */ = {isa = PBXBuildFile; fileRef = E2AF3AC01B12B9DD00EA0333 /* Ping.m */; };
+		E2C7A02E1B44E5130011EC75 /* Brands.m in Sources */ = {isa = PBXBuildFile; fileRef = E2C7A02D1B44E5130011EC75 /* Brands.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -93,9 +94,15 @@
 		E26F7AD51ABFB8FA001B4E3C /* DeviceModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceModel.m; sourceTree = "<group>"; };
 		E27ACE1F1AFDDBDB00E8621D /* HTTPRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPRequest.h; sourceTree = "<group>"; };
 		E27ACE201AFDDBDB00E8621D /* HTTPRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPRequest.m; sourceTree = "<group>"; };
+		E29446991B3CEC5D00FE01BE /* InfoPlist.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = InfoPlist.strings; sourceTree = "<group>"; };
+		E294469A1B3CECE200FE01BE /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		E2AF3ABF1B12B9DD00EA0333 /* Ping.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ping.h; sourceTree = "<group>"; };
 		E2AF3AC01B12B9DD00EA0333 /* Ping.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Ping.m; sourceTree = "<group>"; };
 		E2AF3AC81B12FF7D00EA0333 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		E2C7A02C1B44E5130011EC75 /* Brands.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Brands.h; sourceTree = "<group>"; };
+		E2C7A02D1B44E5130011EC75 /* Brands.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Brands.m; sourceTree = "<group>"; };
+		E2C7A02F1B44E5370011EC75 /* EnumTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnumTypes.h; sourceTree = "<group>"; };
+		E2C7A0301B44E56C0011EC75 /* EnumInfraredType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnumInfraredType.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -169,6 +176,8 @@
 				E26F7AD51ABFB8FA001B4E3C /* DeviceModel.m */,
 				E2AF3ABF1B12B9DD00EA0333 /* Ping.h */,
 				E2AF3AC01B12B9DD00EA0333 /* Ping.m */,
+				E2C7A02C1B44E5130011EC75 /* Brands.h */,
+				E2C7A02D1B44E5130011EC75 /* Brands.m */,
 				E22655BA1904F6360058DEA6 /* Tools */,
 				8E9DC31A187AEF6200CB5109 /* Supporting Files */,
 			);
@@ -181,6 +190,8 @@
 				8E9DC31C187AEF6200CB5109 /* test.1 */,
 				8E4BC55818BF17140089158C /* a.txt */,
 				8E9DC31B187AEF6200CB5109 /* test-Prefix.pch */,
+				E29446991B3CEC5D00FE01BE /* InfoPlist.strings */,
+				E294469A1B3CECE200FE01BE /* Localizable.strings */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -191,6 +202,8 @@
 				E238D52E18F3EBCC00A125F2 /* DB.h */,
 				E238D52F18F3EBCC00A125F2 /* DB.m */,
 				E22655BB1904F6A20058DEA6 /* EnumType.h */,
+				E2C7A02F1B44E5370011EC75 /* EnumTypes.h */,
+				E2C7A0301B44E56C0011EC75 /* EnumInfraredType.h */,
 				E241EEDF18E12A49009259AB /* Polymorphism.h */,
 				E241EEE018E12A49009259AB /* Polymorphism.m */,
 				8E4BC55C18BF30D90089158C /* Encoder.h */,
@@ -276,6 +289,7 @@
 				E245FCD11969272500683FDC /* Rooms.m in Sources */,
 				E2296A95190A0A0A00F78507 /* DeleteFile.m in Sources */,
 				8E7F7C8618CFEE7700595CFE /* StringEncryption.m in Sources */,
+				E2C7A02E1B44E5130011EC75 /* Brands.m in Sources */,
 				E24CA4D2199B080F00E54A9E /* PrintObject.m in Sources */,
 				8E88C15618D0818F00E8137B /* decodeString.m in Sources */,
 			);

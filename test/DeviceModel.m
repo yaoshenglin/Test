@@ -17,15 +17,25 @@
 
 @implementation DeviceModel
 
++ (NSArray *)getAllKeys
+{
+    NSArray *listKey = @[@"ID",@"remoteID",@"deviceID",@"Name",@"InfraredData",@"imgFace",@"Type",@"switchType",@"DataMark"];
+    return listKey;
+}
+
 + (void)createTable
 {
-    NSArray *listKey = @[@"ID",@"Name",@"imgFace",@"InfraredData"];
     //NSArray *listType = @[@"integer primary key",@"bool",@"bool",@"bool",@"text",@"text",@"integer"];
-    NSDictionary *dicData = @{@"array":listKey,
-                              @"ID":@"text",
+    NSDictionary *dicData = @{@"array":[self getAllKeys],
+                              @"ID":@"integer primary key",
+                              @"remoteID":@"integer",
+                              @"deviceID":@"text",
                               @"Name":@"text",
+                              @"InfraredData":@"blob",
                               @"imgFace":@"text",
-                              @"InfraredData":@"blob"};
+                              @"Type":@"integer",
+                              @"switchType":@"integer",
+                              @"DataMark":@"integer"};
     NSString *sql = [DB createSqlWith:dicData table:@"MyDevice"];
     
     [DB execSql:sql];
@@ -45,9 +55,15 @@
             DeviceModel *entity = [[DeviceModel alloc] init];
             
             entity.ID = [DB getInt:stmt index:0];
-            entity.Name = [DB getString:stmt index:1];
-            entity.imgFace = [DB getString:stmt index:2];
-            entity.InfraredData = [DB getData:stmt index:3];
+            entity.remoteID = [DB getInt:stmt index:1];
+            entity.deviceID = [DB getString:stmt index:2];
+            entity.Name = [DB getString:stmt index:3];
+            entity.InfraredData = [DB getData:stmt index:4];
+            entity.imgFace = [DB getString:stmt index:5];
+            
+            entity.Type = [DB getInt:stmt index:6];
+            entity.switchType = [DB getInt:stmt index:7];
+            entity.DataMark = [DB getInt:stmt index:8];
             
             [list addObject:entity];
         }

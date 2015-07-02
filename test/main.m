@@ -29,7 +29,7 @@ typedef NS_OPTIONS(NSUInteger, TQRichTextRunTypeList)
 #include <netdb.h>
 #include <math.h>
 #include <netinet/in.h>
-#import Tool
+#import "DeviceModel.h"
 #import "Tools.h"
 #import "Rooms.h"
 #import "Encoder.h"
@@ -39,18 +39,14 @@ typedef NS_OPTIONS(NSUInteger, TQRichTextRunTypeList)
 #import "DB.h"
 #import "HTTPRequest.h"
 #import "Ping.h"
+#import "Brands.h"
 
 #define var(var) [NSString stringWithFormat:@"%s",#var]
+#define Screen_Width 320.0f
+#define viewH 416.0f
+#define viewW Screen_Width
 
 FOUNDATION_EXPORT void NSLog(NSString *format, ...) NS_FORMAT_FUNCTION(1,2);
-
-#pragma mark 发送超时时间(主机)(Enum_ReceiveTimeOut)
-typedef NS_ENUM(int, Enum_ReceiveTimeOut) {
-    
-    TimeOut_Never       = -1,          //默认不设置超时
-    TimeOut_Online      = 5,          //远程模式超时（单位：秒）
-    TimeOut_Offline     = 3           //离线模式超时（单位：秒）
-};
 
 //typedef double NSTimeInterval;
 
@@ -84,17 +80,23 @@ int main(int argc, const char * argv[])
 //        [Ping PingDomain:@"www.baidu.com"];//180.97.33.107
 //        [Ping PingDomain:@"192.168.11.169" count:3];
         
-        Rooms *room = [[Rooms alloc] initWithID:1 name:@"A"];
-        NSArray *list = @[room];
-        NSInteger index = [list indexOfObject:nil];
-        if ([list containsObject:nil]) {
-            NSOK;
-        }else{
-            NSFail;
+        NSDate *date = [NSDate date];
+        
+        Brands *brand = [[Brands alloc] init];
+        brand.brandname = @"888牌";
+        for (int i=0; i<1000; i++) {
+            NSString *s1 = [brand getPinyin][@"short"];
+            
+            NSString *regex = @"^[0-9]+[A-Za-z\u4E00-\u9FA5]*";
+            if ([s1 evaluateWithFormat:regex]) {
+                
+            }
+            
+            [s1 compare:@"A"];
         }
-        if (index == NSNotFound) {
-            NSOK;
-        }
+        
+        NSTimeInterval space = [[NSDate date] timeIntervalSinceDate:date];
+        NSLog(@"用时 %f s",space);
     }
     return 0;
 }
