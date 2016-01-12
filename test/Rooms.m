@@ -9,6 +9,7 @@
 #import "Rooms.h"
 #import "GDataXMLNode.h"
 #import "Tools.h"
+#import <objc/runtime.h>
 
 @interface Rooms (ABC)
 {
@@ -31,7 +32,7 @@
     self = [super init];
     if (self) {
         //self.ID = 23;
-        //self.name = @"B";
+        self.name = @"B";
     }
     
     return self;
@@ -417,6 +418,36 @@ NSStringEncoding getEncode()
     }
     
     return reuslt;
+}
+
++ (void)addProperty:(NSString *)propertyName
+{
+    objc_property_attribute_t type = { "T", "@\"NSString\"" };
+    objc_property_attribute_t ownership = { "C", "" }; // C = copy
+    objc_property_attribute_t backingivar  = { "V", "name" };
+    objc_property_attribute_t attrs[] = { type, ownership, backingivar };
+    class_addProperty([Rooms class], propertyName.UTF8String, attrs, 3);
+    class_addMethod([Rooms class], NSSelectorFromString(propertyName), (IMP)ageGetter, "@@:");
+    NSString *selStr = [NSString stringWithFormat:@"set%@:",propertyName];
+    selStr = @"setAge:";
+    class_addMethod([Rooms class], NSSelectorFromString(selStr), (IMP)ageSetter, "v@:@");
+}
+
+NSString *ageGetter(id self, SEL _cmd) {
+    NSString *var = NSStringFromSelector(_cmd);
+    Ivar ivar = class_getInstanceVariable([Rooms class], var.UTF8String);
+    return object_getIvar(self, ivar);
+}
+
+void ageSetter(id self, SEL _cmd, NSString *newName) {
+    NSString *var = [NSStringFromSelector(_cmd) stringByReplacingCharactersInRange:NSMakeRange(0, 3) withString:@""];
+    NSString *head = [var substringWithRange:NSMakeRange(0, 1)];
+    head = [head lowercaseString];
+    var = [var stringByReplacingCharactersInRange:NSMakeRange(0, 1) withString:head];
+    var = [var stringByReplacingCharactersInRange:NSMakeRange(var.length-1, 1) withString:@""];
+    Ivar ivar = class_getInstanceVariable([Rooms class], var.UTF8String);
+    id oldName = object_getIvar(self, ivar);
+    if (oldName != newName) object_setIvar(self, ivar, [newName copy]);
 }
 
 @end

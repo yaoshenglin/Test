@@ -23,8 +23,9 @@ typedef CF_ENUM(NSStringEncoding, CFStringBuilt) {
 
 +(Tools *)init;
 
-+ (void)NullString:(NSString *)aString, ... NS_REQUIRES_NIL_TERMINATION;
 +(NSString *)convertNullString:(NSString *)aString;
+
++ (BOOL)ValidCRCWithHost:(NSData *)data;
 
 #pragma mark 拿取文件路径
 +(NSString *)dataFilePath:(NSString *)fileName;
@@ -52,6 +53,8 @@ CGFloat *colorWithHex(NSString *stringToConvert);
 + (NSString *)encryptFrom:(NSString *)str;
 
 + (NSString *)encryptMacHost:(NSString *)host;//加密成主机二维码
++ (NSString *)encryptPlugID:(NSString *)deviceID;//加密成插座二维码
++ (NSString *)encryptSwitchID:(NSString *)deviceID;//加密成开关二维码
 
 //重命名文件
 +(BOOL)RenameAtPath:(NSString *)FilePath newName:(NSString *)newName;
@@ -61,13 +64,6 @@ CGFloat *colorWithHex(NSString *stringToConvert);
 + (BOOL)evaluateWith:(id)object format:(NSString *)regex;
 
 +(BOOL)otherOperation:(NSString *)FilePath suffixName:(NSString *)oldName toSuffixName:(NSString *)newName;
-
-//保存文件到本地
-+ (void)saveFileWithPath:(NSString *)path FileName:(NSString *)name content:(id)content;
-//读
-+(NSData *)readFileWithPath:(NSString *)path FileName:(NSString *)name;
-
-+ (void)saveFileToPath:(NSString *)Path with:(id)obj;
 
 +(id)readFileWithPath:(NSString *)Path;
 
@@ -129,6 +125,8 @@ NSString* getPartString(NSString *string,NSString *aString,NSString *bString);
 + (char *)parseDomain:(NSString *)domain;
 + (NSString *)parserDomain:(NSString *)domain;
 
++ (NSArray *)getAllEncoding;
+
 @end
 
 
@@ -141,11 +139,13 @@ NSString* getPartString(NSString *string,NSString *aString,NSString *bString);
 + (NSString *)jsonStringWithDictionary:(NSDictionary *)dictionary;
 + (NSString *)jsonStringWithObject:(id) object;
 - (NSString *) phonetic;
+- (NSString *)replaceString:(NSString *)target withString:(NSString *)replacement;
 + (NSString *)format:(NSString *)format, ... NS_FORMAT_FUNCTION(1,2);
 - (NSString *)AppendFormat:(NSString *)format, ... NS_FORMAT_FUNCTION(1,2);
 - (NSData *)dataByHexString;//十六进制字符转data
 
 - (NSString *)AppendString:(NSString *)aString;
+- (NSString *)objectAtIndex:(NSInteger)index;
 
 - (NSDictionary *)convertToDic;
 + (NSString *)stringWith:(NSString *)string;
@@ -162,6 +162,9 @@ NSString* getPartString(NSString *string,NSString *aString,NSString *bString);
 
 //获取第一个字符
 - (NSString *)firstString;
+
+- (int)countTheStr;//计算字符串长度
+- (NSString *)getCStringWithLen:(int)len;
 
 - (BOOL)evaluateWithFormat:(NSString *)regex;
 

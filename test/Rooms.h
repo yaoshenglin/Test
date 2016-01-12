@@ -30,4 +30,6 @@
 
 + (NSDate *)dateWith:(NSString *)hourStr week:(Week)weekDay;
 
++ (void)addProperty:(NSString *)propertyName;
+
 @end

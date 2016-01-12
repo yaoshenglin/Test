@@ -41,12 +41,12 @@ typedef NS_OPTIONS(NSUInteger, TQRichTextRunTypeList)
 #import "Ping.h"
 #import "Brands.h"
 
-#define var(var) [NSString stringWithFormat:@"%s",#var]
+#define var(v) [NSString stringWithFormat:@"%s",#v]
 #define Screen_Width 320.0f
 #define viewH 416.0f
 #define viewW Screen_Width
 
-FOUNDATION_EXPORT void NSLog(NSString *format, ...) NS_FORMAT_FUNCTION(1,2);
+//FOUNDATION_EXPORT void NSLog(NSString *format, ...) NS_FORMAT_FUNCTION(1,2);
 
 //typedef double NSTimeInterval;
 
@@ -56,6 +56,58 @@ void printHead()
         NSLog(@"本机IP地址 : %@",[[Tools localIPAddress] convertToString]);
         NSDictionary *dic = [Tools readCustomPath];
         Log(dic[@"iFace"]);
+        printf("---------------------------------------\n");
+    }
+}
+
+void deleteCrashFile()
+{
+    NSError *error = nil;
+    NSDictionary *dic = [Tools readCustomPath];
+    NSString *path = dic[@"iFace"];
+    path = [path stringByAppendingPathComponent:@"CrashInfo"];
+    NSFileManager *manager = [NSFileManager defaultManager];
+    if ([manager fileExistsAtPath:path]) {
+        NSArray *directoryContents = [[NSFileManager defaultManager] contentsOfDirectoryAtPath: path error:nil];
+        if (directoryContents.count > 0) {
+            if (![manager removeItemAtPath:path error:&error]) {
+                if (error) {
+                    NSLog(@"删除文件, %@",error.localizedDescription);
+                }else{
+                    NSLog(@"删除文件失败");
+                }
+            }else{
+                NSLog(@"删除Crash文件成功");
+            }
+        }else{
+            NSLog(@"Crash文件不存在");
+        }
+    }else{
+        NSLog(@"Crash文件夹不存在");
+    }
+}
+
+void deleteImage()
+{
+    @autoreleasepool {
+        NSDictionary *dic = [Tools readCustomPath];
+        NSString *path = [dic objectForKey:@"iFace"];
+        path = [path stringByAppendingPathComponent:@"images"];
+        NSFileManager *manager = [NSFileManager defaultManager];
+        NSError *error = nil;
+        if ([manager fileExistsAtPath:path]) {
+            if (![manager removeItemAtPath:path error:&error]) {
+                if (error) {
+                    NSLog(@"删除文件, %@",error.localizedDescription);
+                }else{
+                    NSLog(@"删除文件失败");
+                }
+            }else{
+                NSLog(@"删除成功");
+            }
+        }else{
+            NSLog(@"文件不存在");
+        }
     }
 }
 
@@ -71,6 +123,19 @@ NSString *getHex(NSInteger value)
     return result;
 }
 
+void BatchRename()
+{
+    NSError *error = nil;
+    NSString *path = @"/Users/Yin-Mac/Documents/其它/批量重命名.txt";
+    NSString *content = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:&error];
+    if (error) {
+        NSLog(@"读取文件失败,%@",error.localizedDescription);
+    }else{
+        char *str = (char *)[content UTF8String];
+        printf("%s\n",str);
+    }
+}
+
 int main(int argc, const char * argv[])
 {
     printHead();
@@ -80,24 +145,22 @@ int main(int argc, const char * argv[])
 //        [Ping PingDomain:@"www.baidu.com"];//180.97.33.107
 //        [Ping PingDomain:@"192.168.11.169" count:3];
         
-        NSDate *date = [NSDate date];
+//        NSString *path = @"http://www.baidu.com";
+//        //path = [path stringByExpandingTildeInPath];
+//        NSString *format = @"^((https?|ftp|news):\\/\\/)?([a-z]([a-z0-9\\-]*[\\.])+([a-z]{2}|aero|arpa|biz|com|coop|edu|gov|info|int|jobs|mil|museum|name|nato|net|org|pro|travel)|(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))(\\/[a-z0-9_\\-\\.~]+)*(\\/([a-z0-9_\\-\\.]*)(\\?[a-z0-9+_\\-\\.%=&]*)?)?(#[a-z][a-z0-9_]*)?$";
+//        format = @"^http[s]{0,1}$";
+//        
+//        if ([path evaluateWithFormat:format]) {
+//            NSOK;
+//        }
         
-        Brands *brand = [[Brands alloc] init];
-        brand.brandname = @"888牌";
-        for (int i=0; i<1000; i++) {
-            NSString *s1 = [brand getPinyin][@"short"];
-            
-            NSString *regex = @"^[0-9]+[A-Za-z\u4E00-\u9FA5]*";
-            if ([s1 evaluateWithFormat:regex]) {
-                
-            }
-            
-            [s1 compare:@"A"];
-        }
         
-        NSTimeInterval space = [[NSDate date] timeIntervalSinceDate:date];
-        NSLog(@"用时 %f s",space);
+        Rooms *room = [[Rooms alloc] init];
+        room.name = @"A";
+        
+        NSLog(@"value = %@", [room valueForKey:@"name"]);
     }
+    
     return 0;
 }
 

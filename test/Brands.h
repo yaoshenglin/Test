@@ -20,6 +20,7 @@
 @property (retain, nonatomic) NSString *ebrandname;
 @property (retain, nonatomic) NSString *model_list;//型号列表
 @property (retain, nonatomic) NSString *others;
+@property (retain, nonatomic) NSString *age;
 
 //********************
 @property (retain, nonatomic) id userInfo;

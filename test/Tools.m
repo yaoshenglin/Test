@@ -22,25 +22,6 @@
     return tool;
 }
 
-//如果字符串为nil,将其转为@""
-+ (void)NullString:(NSString *)aString, ...
-{
-    va_list args;
-    // scan for arguments after firstObject.
-    va_start(args, aString);
-    
-    // get rest of the objects until nil is found
-    for (NSString *str = aString; &str != nil; str = va_arg(args,NSString *)) {
-        if (str==NULL) {
-            
-        }else {
-            
-        }
-    }
-    
-    va_end(args);
-}
-
 +(NSString *)convertNullString:(NSString *)aString
 {
     if (aString==NULL) {
@@ -48,6 +29,29 @@
     }else{
         return aString;
     }
+}
+
++ (BOOL)ValidCRCWithHost:(NSData *)data
+{
+    /// <summary>
+    /// 验证校验码是否正确
+    /// </summary>
+    /// <param name="data"></param>
+    if (!data)
+        return false;
+    
+    Byte crc1 = 0x00;
+    Byte crc2 = 0x00;
+    Byte *Buf = (Byte *)[data bytes];
+    NSInteger length = data.length;
+    for (int i = 0; i < length - 2; i++)
+    {
+        crc1 += Buf[i];
+        crc2 ^= Buf[i];
+    }
+    
+    BOOL result = crc1 == Buf[length - 2] && crc2 == Buf[length - 1];
+    return result;
 }
 
 #pragma ***********************************************************************************************
@@ -88,56 +92,6 @@
     
     int result = setxattr(charFilePath, attrName, &attrValue, sizeof(attrValue), 0, 0);
     return result == 0;
-}
-
-+ (void)saveFileWithPath:(NSString *)path FileName:(NSString *)name content:(id)content
-{
-    path = [path stringByExpandingTildeInPath];//扩展成路径
-    NSString *FilePath = [path stringByAppendingPathComponent:name];
-    NSError *error = nil;
-    if (content==NULL) {
-        NSLog(@"数据为空,写入失败");
-        return;
-    }
-    if ([content isKindOfClass:[NSString class]]) {
-        NSString *data = content;
-        [data writeToFile:FilePath atomically:YES encoding:NSUTF8StringEncoding error:&error];
-    }
-    if ([content isKindOfClass:[NSArray class]]) {
-        NSArray *data = content;
-        [data writeToFile:FilePath atomically:YES];
-    }
-    if ([content isKindOfClass:[NSDictionary class]]) {
-        NSDictionary *data = content;
-        [data writeToFile:FilePath atomically:YES];
-    }
-    if ([content isKindOfClass:[NSData class]]) {
-        NSData *data = content;
-        [data writeToFile:FilePath atomically:YES];
-    }
-    
-    if (error) {
-        NSLog(@"错误:%@",error.description);
-    }
-}
-
-+(NSData *)readFileWithPath:(NSString *)path FileName:(NSString *)name
-{
-    path = [path stringByExpandingTildeInPath];//扩展成路径
-    NSString *FilePath = [path stringByAppendingPathComponent:name];
-    NSData *data = [[NSData alloc] initWithContentsOfFile:FilePath];
-    return data;
-}
-
-+ (void)saveFileToPath:(NSString *)Path with:(id)obj
-{
-    NSMutableData *data = [[NSMutableData alloc] init];
-    NSKeyedArchiver *archiver = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data];
-    NSString *key = @"我的程序";
-    //key = [key stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    [archiver encodeObject:obj forKey:key];
-    [archiver finishEncoding];
-    [data writeToFile:Path atomically:YES];
 }
 
 +(id)readFileWithPath:(NSString *)Path
@@ -645,7 +599,21 @@ NSString *pooledString(NSString *aString,NSString *bString,NSString *midString)
 
 + (NSString *)encryptMacHost:(NSString *)host
 {
-    NSString *result = [NSString format:@"device:host;content:%@;ver:1.0",host];
+    NSString *result = [NSString format:@"device:host;id:%@;ver:1.0",host];
+    result = [Tools encryptFrom:result];
+    return result;
+}
+
++ (NSString *)encryptPlugID:(NSString *)deviceID
+{
+    NSString *result = [NSString format:@"device:plug;id:%@;ver:1.0",deviceID];
+    result = [Tools encryptFrom:result];
+    return result;
+}
+
++ (NSString *)encryptSwitchID:(NSString *)deviceID
+{
+    NSString *result = [NSString format:@"device:switch;id:%@;ver:1.0",deviceID];
     result = [Tools encryptFrom:result];
     return result;
 }
@@ -1091,6 +1059,12 @@ NSString* getPartString(NSString *string,NSString *aString,NSString *bString)
     return nil;
 }
 
++ (NSArray *)getAllEncoding
+{
+    NSArray *list = @[@(NSASCIIStringEncoding),@(NSNEXTSTEPStringEncoding),@(NSJapaneseEUCStringEncoding),@(NSUTF8StringEncoding),@(NSISOLatin1StringEncoding),@(NSSymbolStringEncoding),@(NSNonLossyASCIIStringEncoding),@(NSShiftJISStringEncoding),@(NSISOLatin2StringEncoding),@(NSUnicodeStringEncoding),@(NSWindowsCP1251StringEncoding),@(NSWindowsCP1252StringEncoding),@(NSWindowsCP1253StringEncoding),@(NSWindowsCP1254StringEncoding),@(NSWindowsCP1250StringEncoding),@(NSISO2022JPStringEncoding),@(NSMacOSRomanStringEncoding),@(NSUTF16StringEncoding),@(NSUTF16BigEndianStringEncoding),@(NSUTF16LittleEndianStringEncoding),@(NSUTF32StringEncoding),@(NSUTF32BigEndianStringEncoding),@(NSUTF32LittleEndianStringEncoding)];
+    return list;
+}
+
 @end
 
 #pragma mark - ---------NSString---------------------
@@ -1162,6 +1136,12 @@ NSString* getPartString(NSString *string,NSString *aString,NSString *bString)
     return source;
 }
 
+- (NSString *)replaceString:(NSString *)target withString:(NSString *)replacement
+{
+    NSString *result = [self stringByReplacingOccurrencesOfString:target withString:replacement];
+    return result;
+}
+
 + (NSString *)format:(NSString *)format, ... NS_FORMAT_FUNCTION(1,2)
 {
     if (!format)
@@ -1210,6 +1190,15 @@ NSString* getPartString(NSString *string,NSString *aString,NSString *bString)
 - (NSString *)AppendString:(NSString *)aString
 {
     return [self stringByAppendingString:aString];
+}
+
+- (NSString *)objectAtIndex:(NSInteger)index
+{
+    if (self.length > index) {
+        NSString *result = [self substringWithRange:NSMakeRange(index, 1)];
+        return result;
+    }
+    return nil;
 }
 
 - (NSDictionary *)convertToDic
@@ -1294,6 +1283,44 @@ NSString* getPartString(NSString *string,NSString *aString,NSString *bString)
     }
     
     return self;
+}
+
+- (int)countTheStr
+{
+    NSString *strtemp = self;
+    int strlength = 0 ;
+    char *p = (char *)[strtemp cStringUsingEncoding:NSUnicodeStringEncoding];
+    NSInteger length = [strtemp lengthOfBytesUsingEncoding:NSUnicodeStringEncoding];
+    for (int i= 0 ; i<length ;i++) {
+        
+        if (*p) {
+            
+            p ++ ;
+            strlength ++ ;
+            
+        }
+        else {
+            p ++ ;
+        }
+    }
+    
+    return strlength;
+}
+
+- (NSString *)getCStringWithLen:(int)len
+{
+    NSMutableString *string = [NSMutableString string];
+    for (int i=0; i<self.length; i++) {
+        NSString *s = [self substringWithRange:NSMakeRange(i, 1)];
+        int currentLen = string.countTheStr + s.countTheStr;
+        if (currentLen <= len) {
+            [string appendString:s];
+        }else{
+            break;
+        }
+    }
+    
+    return string;
 }
 
 - (BOOL)evaluateWithFormat:(NSString *)regex

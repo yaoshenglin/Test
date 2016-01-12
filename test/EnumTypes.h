@@ -114,7 +114,8 @@ typedef NS_ENUM(int, Enum_DeviceType) {
     IrDACus_STB             = 1 << 20,      //自定义学习机顶盒
     
     DeviceType_Switch           = 100,       //未定义名称的开关设备
-    DeviceType_DoorLock         = 101,       //门锁
+    Switch_DoorLock             = 200,       //门锁
+    Switch_GateLock             = 201,       //门锁
     DeviceType_DoorControl      = 102,       //门禁
 };
 

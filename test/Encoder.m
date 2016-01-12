@@ -62,7 +62,7 @@
     va_start(args, firstObj);
     
     // get rest of the objects until nil is found
-    for (id obj = firstObj; &obj != nil; obj = va_arg(args,id)) {
+    for (id obj = firstObj; obj; obj = va_arg(args,id)) {
         if (obj==NULL) {
             obj = @"";
         }
