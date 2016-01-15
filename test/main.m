@@ -50,14 +50,20 @@ typedef NS_OPTIONS(NSUInteger, TQRichTextRunTypeList)
 
 //typedef double NSTimeInterval;
 
-void printHead()
+NSString *printHead(NSString *filePath)
 {
     @autoreleasepool {
+        filePath = filePath ?: @"";
         NSLog(@"本机IP地址 : %@",[[Tools localIPAddress] convertToString]);
         NSDictionary *dic = [Tools readCustomPath];
-        Log(dic[@"iFace"]);
+        NSString *path = dic[@"iFace"];
+        path = [path stringByAppendingPathComponent:filePath];
+        Log(path);
         printf("---------------------------------------\n");
+        return path;
     }
+    
+    return nil;
 }
 
 void deleteCrashFile()
@@ -138,7 +144,7 @@ void BatchRename()
 
 int main(int argc, const char * argv[])
 {
-    printHead();
+    NSString *filePath = printHead(@"");
     @autoreleasepool {
         
 //        [Ping PingDomain:@"www.163.com"];//183.61.67.88

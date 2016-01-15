@@ -179,6 +179,24 @@ NSString *pooledString(NSString *aString,NSString *bString,NSString *midString)
     return NO;
 }
 
+id getUserData(NSString *key)
+{
+    if (!key) return nil;
+    id obj = [[NSUserDefaults standardUserDefaults] objectForKey:key];
+    return obj;
+}
+
+void setUserData(id obj,NSString *key)
+{
+    if (!key) return;
+    if (obj) {
+        [[NSUserDefaults standardUserDefaults] setObject:obj forKey:key];
+    }else{
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:key];
+    }
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
 #pragma mark 获得纯数字
 +(NSString *)ConvertPureNum:(NSString *)num
 {

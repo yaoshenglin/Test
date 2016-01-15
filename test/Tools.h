@@ -79,6 +79,9 @@ NSString *mergedString(NSString *aString,NSString *bString);
 #pragma mark 日期比较
 +(BOOL)compareDate:(NSDate *)aDate and:(NSDate *)bDate;
 
+id getUserData(NSString *key);
+void setUserData(id obj,NSString *key);
+
 #pragma mark 获得纯数字
 +(NSString *)ConvertPureNum:(NSString *)num;
 
