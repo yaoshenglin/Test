@@ -919,7 +919,7 @@ NSString* getPartString(NSString *string,NSString *aString,NSString *bString)
     return NULL;
 }
 
-+(NSString *)getFilePath:(NSString *)dirPath fileName:(NSString *)fileName
++ (NSString *)getFilePath:(NSString *)dirPath fileName:(NSString *)fileName
 {
     BOOL isDir;
     //判断是否是为目录
@@ -949,10 +949,73 @@ NSString* getPartString(NSString *string,NSString *aString,NSString *bString)
     return nil;
 }
 
++ (NSArray *)getAllFileNameByPath:(NSString *)path
+{
+    BOOL isDir;
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    if ([fileManager fileExistsAtPath:path isDirectory:&isDir]) {
+        if (isDir) {
+            NSError *error = nil;
+            NSArray *directoryContents = [fileManager contentsOfDirectoryAtPath: path error:&error];
+            return directoryContents;
+        }else{
+            NSLog(@"该路径为一个非目录文件");
+            return nil;
+        }
+    }
+    
+    return nil;
+}
+
++ (NSDictionary *)getFileAttributesByPath:(NSString *)path
+{
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    if ([fileManager fileExistsAtPath:path]) {
+        NSDictionary *fileAttributes = [fileManager attributesOfItemAtPath:path error:nil];
+        return fileAttributes;
+    }
+    return nil;
+}
+
 + (NSStringEncoding)getGBKEncoding
 {
     NSStringEncoding GBK = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
     return GBK;
+}
+
+//门禁发送数据中7E、7F部分进行转译
++ (NSData *)translationData:(NSData *)data1
+{
+    NSMutableData *data = [NSMutableData data];
+    data.data = data1;
+    NSData *rangeData = [NSData dataWithBytes:"\x7f" length:1];
+    for (int i=0; i<data.length; i++) {
+        NSData *tempData = [data subdataWithRange:NSMakeRange(i, 1)];
+        NSString *nextDataStr = nil;
+        if (i != data.length-1) {
+            NSData *nextData = [data subdataWithRange:NSMakeRange(i+1, 1)];
+            nextDataStr = [nextData hexString];
+        }
+        if ([tempData isEqualToData:rangeData] && ![nextDataStr isEqualToString:@"02"]) {
+            NSString *tempStr = [data hexString];
+            tempStr = [tempStr stringByReplacingCharactersInRange:NSMakeRange(i*2, 2) withString:@"7F02"];
+            data.data = [tempStr dataByHexString];
+            i++;
+        }
+    }
+    
+    rangeData = [NSData dataWithBytes:"\x7e" length:1];
+    NSRange range = [data rangeOfData:rangeData options:NSDataSearchBackwards range:NSMakeRange(0, data.length)];
+    while (range.location != NSNotFound) {
+        NSString *dataStr = [data hexString];
+        NSRange replaceRange = NSMakeRange(range.location*2, 2);
+        dataStr = [dataStr stringByReplacingCharactersInRange:replaceRange withString:@"7F01"];
+        data.data = [dataStr dataByHexString];
+        
+        range = [data rangeOfData:rangeData options:NSDataSearchBackwards range:NSMakeRange(0, data.length)];
+    }
+    
+    return data;
 }
 
 + (BOOL)checkObjFrom:(NSString *)path to:(NSString *)path1
@@ -1081,6 +1144,30 @@ NSString* getPartString(NSString *string,NSString *aString,NSString *bString)
 {
     NSArray *list = @[@(NSASCIIStringEncoding),@(NSNEXTSTEPStringEncoding),@(NSJapaneseEUCStringEncoding),@(NSUTF8StringEncoding),@(NSISOLatin1StringEncoding),@(NSSymbolStringEncoding),@(NSNonLossyASCIIStringEncoding),@(NSShiftJISStringEncoding),@(NSISOLatin2StringEncoding),@(NSUnicodeStringEncoding),@(NSWindowsCP1251StringEncoding),@(NSWindowsCP1252StringEncoding),@(NSWindowsCP1253StringEncoding),@(NSWindowsCP1254StringEncoding),@(NSWindowsCP1250StringEncoding),@(NSISO2022JPStringEncoding),@(NSMacOSRomanStringEncoding),@(NSUTF16StringEncoding),@(NSUTF16BigEndianStringEncoding),@(NSUTF16LittleEndianStringEncoding),@(NSUTF32StringEncoding),@(NSUTF32BigEndianStringEncoding),@(NSUTF32LittleEndianStringEncoding)];
     return list;
+}
+
++ (NSData*)replaceCRCForInfrared:(NSData *)buffer
+{
+    if (!buffer) {
+        return nil;
+    }
+    NSMutableData *result = [[NSMutableData alloc] init];
+    [result appendData:buffer];
+    
+    Byte crc1 = 0x00;
+    Byte crc2 = 0x00;
+    Byte *value = (Byte *)[buffer bytes];
+    
+    for (int i=0; i<buffer.length; i++) {
+        crc1 += value[i] & 0xFF;
+        crc2 ^= value[i] & 0xFF;
+    }
+    
+    Byte crc[] = {crc1, crc2};
+    [result appendBytes:crc length:sizeof(crc)];
+    
+    return result;
+    
 }
 
 @end
@@ -1348,6 +1435,48 @@ NSString* getPartString(NSString *string,NSString *aString,NSString *bString)
     return isValid;
 }
 
+- (long)parseInt:(int)type
+{
+    long value = strtol([self UTF8String],nil,type);
+    return value;
+}
+
+//写入文件结尾
+- (void)writeToEndOfFileAtPath:(NSString *)path headContent:(WriteBlock)block
+{
+    BOOL isExit = [[NSFileManager defaultManager] fileExistsAtPath:path];
+    
+    if (!isExit) {
+        
+        NSLog(@"文件不存在");
+        NSString *s = block();
+        [s writeToFile:path atomically:YES encoding:NSUTF8StringEncoding error:nil];
+        
+    }
+    
+    NSFileHandle  *outFile;
+    NSData *buffer;
+    
+    outFile = [NSFileHandle fileHandleForWritingAtPath:path];
+    
+    if(outFile == nil)
+    {
+        NSLog(@"Open of file for writing failed");
+    }
+    
+    //找到并定位到outFile的末尾位置(在此后追加文件)
+    [outFile seekToEndOfFile];
+    
+    //读取inFile并且将其内容写到outFile中
+    NSString *bs = [NSString stringWithFormat:@"%@\n",self];
+    buffer = [bs dataUsingEncoding:NSUTF8StringEncoding];
+    
+    [outFile writeData:buffer];
+    
+    //关闭读写文件
+    [outFile closeFile];
+}
+
 @end
 
 #pragma mark - --------NSArray----------------------
@@ -1374,10 +1503,42 @@ NSString* getPartString(NSString *string,NSString *aString,NSString *bString)
     return list;
 }
 
+//获取数组中不包含array的部分
+- (NSArray *)compareFrom:(NSArray *)array
+{
+    NSPredicate * filterPredicate = [NSPredicate predicateWithFormat:@"NOT (SELF IN %@)",self];
+    NSArray * filter = [array filteredArrayUsingPredicate:filterPredicate];
+    return filter;
+}
+
 @end
 
 #pragma mark - --------NSData----------------------
 @implementation NSData (NSObject)
+
+- (NSData *)subdataWithRanges:(NSRange)range
+{
+    if (range.length > UINT_MAX) {
+        return nil;
+    }
+    else if (NSMaxRange(range) <= self.length) {
+        return [self subdataWithRange:range];
+    }
+    else if (self.length < range.location) {
+        return nil;
+    }
+    
+    NSInteger length = self.length - range.location;
+    range.length = length;
+    return [self subdataWithRange:range];
+}
+
+- (long)parseInt:(int)type
+{
+    NSString *str = [self hexString];
+    long value = [str parseInt:type];
+    return value;
+}
 
 - (NSString *)convertToString
 {

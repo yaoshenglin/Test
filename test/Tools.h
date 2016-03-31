@@ -11,6 +11,7 @@
 #import <Foundation/Foundation.h>
 #import "TestHeads.h"
 
+typedef NSString * (^WriteBlock)();
 typedef CF_ENUM(NSStringEncoding, CFStringBuilt) {
     GBEncoding = 0x80000632 /* kTextEncodingUnicodeDefault + kUnicodeUTF32LEFormat */
 };
@@ -117,9 +118,14 @@ NSString *replaceString(NSString *string,NSString *oldString,NSString *newString
 
 NSString* getPartString(NSString *string,NSString *aString,NSString *bString);
 
-+(NSString *)getFilePath:(NSString *)dirPath fileName:(NSString *)fileName;
++ (NSString *)getFilePath:(NSString *)dirPath fileName:(NSString *)fileName;
++ (NSArray *)getAllFileNameByPath:(NSString *)path;
++ (NSDictionary *)getFileAttributesByPath:(NSString *)path;
 
-+(NSStringEncoding)getGBKEncoding;
++ (NSStringEncoding)getGBKEncoding;
+
+//门禁发送数据中7E、7F部分进行转译
++ (NSData *)translationData:(NSData *)data1;
 
 + (BOOL)checkObjFrom:(NSString *)path to:(NSString *)path1;
 
@@ -129,6 +135,7 @@ NSString* getPartString(NSString *string,NSString *aString,NSString *bString);
 + (NSString *)parserDomain:(NSString *)domain;
 
 + (NSArray *)getAllEncoding;
++ (NSData*)replaceCRCForInfrared:(NSData *)buffer;
 
 @end
 
@@ -171,6 +178,9 @@ NSString* getPartString(NSString *string,NSString *aString,NSString *bString);
 
 - (BOOL)evaluateWithFormat:(NSString *)regex;
 
+//写入文件结尾
+- (void)writeToEndOfFileAtPath:(NSString *)path headContent:(WriteBlock)block;
+
 @end
 
 #pragma mark NSArray
@@ -178,11 +188,16 @@ NSString* getPartString(NSString *string,NSString *aString,NSString *bString);
 
 - (id)getObjByKey:(NSString *)key value:(id)value;
 - (NSArray *)replaceObject:(NSUInteger)index with:(id)anObject;
+//获取数组中不包含array的部分
+- (NSArray *)compareFrom:(NSArray *)array;
 
 @end
 
 #pragma mark NSData
 @interface NSData (NSObject)
+
+- (NSData *)subdataWithRanges:(NSRange)range;
+- (long)parseInt:(int)type;
 
 - (NSString *)convertToString;
 - (NSString *)stringUsingEncoding:(NSStringEncoding)encoding;
@@ -199,7 +214,7 @@ NSString* getPartString(NSString *string,NSString *aString,NSString *bString);
 
 - (id)unarchiveData;
 
-- (NSArray *)transformToDecimal;
+- (NSArray *)transformToDecimal;//每个字符转化成十进制
 
 @end
 

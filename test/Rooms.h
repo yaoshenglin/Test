@@ -15,6 +15,7 @@
 }
 
 @property (nonatomic) int ID;
+@property (nonatomic) int age;
 @property (retain, nonatomic) NSString *name;
 
 - (id)initWithID:(int)theID name:(NSString *)theName;
@@ -23,6 +24,10 @@
 - (void)printValue:(CGFloat)value;
 - (NSDate *)dateFromString:(NSString *)str withDateFormater:(NSString *)formater;
 + (NSString *)dateToString:(NSDate *)date withDateFormater:(NSString *)formater;
++ (NSData *)ValidCRCWithHost:(NSData *)data;
+
+
+#pragma mark request
 + (void)startRequest;
 + (void)requestWithUrl:(NSString *)urlString;
 

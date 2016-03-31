@@ -103,6 +103,7 @@
 		E2C7A02D1B44E5130011EC75 /* Brands.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Brands.m; sourceTree = "<group>"; };
 		E2C7A02F1B44E5370011EC75 /* EnumTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnumTypes.h; sourceTree = "<group>"; };
 		E2C7A0301B44E56C0011EC75 /* EnumInfraredType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnumInfraredType.h; sourceTree = "<group>"; };
+		E2E75D451C7FF9DD009C1581 /* 5.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = 5.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -178,6 +179,7 @@
 				E2AF3AC01B12B9DD00EA0333 /* Ping.m */,
 				E2C7A02C1B44E5130011EC75 /* Brands.h */,
 				E2C7A02D1B44E5130011EC75 /* Brands.m */,
+				E2E75D451C7FF9DD009C1581 /* 5.txt */,
 				E22655BA1904F6360058DEA6 /* Tools */,
 				8E9DC31A187AEF6200CB5109 /* Supporting Files */,
 			);

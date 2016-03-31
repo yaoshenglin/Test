@@ -142,9 +142,26 @@ void BatchRename()
     }
 }
 
+NSArray *compareArray(NSArray *arr1,NSArray *arr2)
+{
+    NSPredicate * filterPredicate = [NSPredicate predicateWithFormat:@"NOT (SELF IN %@)",arr1];
+    NSArray * filter = [arr2 filteredArrayUsingPredicate:filterPredicate];
+    return filter;
+}
+
+int getMax(int *s)
+{
+    int a = 0;
+    for (int i=0; i<5; i++) {
+        a = MAX(a, s[i]);
+    }
+    
+    return a;
+}
+
 int main(int argc, const char * argv[])
 {
-    NSString *filePath = printHead(@"");
+    printHead(@"");
     @autoreleasepool {
         
 //        [Ping PingDomain:@"www.163.com"];//183.61.67.88
@@ -160,11 +177,21 @@ int main(int argc, const char * argv[])
 //            NSOK;
 //        }
         
+        //NSString *path = @"/Users/Yin-Mac/Movies/wifi_v2.06.bin";
+        //NSData *data = [NSData dataWithContentsOfFile:path];
+        //data = [Rooms ValidCRCWithHost:data];
         
-        Rooms *room = [[Rooms alloc] init];
-        room.name = @"A";
+        NSString *urlStr = @"Http://www.baidu.com";
+        NSString *value = [urlStr lowercaseString];
+        if ([value hasPrefix:@"http://"]) {
+            urlStr = [urlStr substringFromIndex:7];
+        }
+        else if ([value hasPrefix:@"https://"]) {
+            urlStr = [urlStr substringFromIndex:8];
+        }
         
-        NSLog(@"value = %@", [room valueForKey:@"name"]);
+        NSLog(@"%@",urlStr);
+        
     }
     
     return 0;

@@ -11,10 +11,12 @@
 
 #pragma mark 手机设备类型(Enum_iPhoneType)
 typedef NS_ENUM(int, Enum_iPhoneType) {
-    iPhone_Online   = 1,    //远程模式（在线模式）
-    iPhone_WP       = 2,    //WP
-    iPhone_Android  = 3,    //Android
-    iPhone_iOS      = 4     //iOS
+    Device_All      = 0,    //All
+    Device_Browser  = 1,    //Browser
+    Device_PC       = 2,    //PC
+    Device_Android  = 3,    //Android
+    Device_iOS      = 4,    //iOS
+    Device_WP       = 5,    //WP
 };
 
 #pragma mark 登录类型(Enum_LoginType)

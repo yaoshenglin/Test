@@ -33,6 +33,7 @@
     if (self) {
         //self.ID = 23;
         self.name = @"B";
+        self.ID = 3;
     }
     
     return self;
@@ -44,9 +45,15 @@
     if (self) {
         self.ID = theID;
         self.name = theName;
+        self.ID = 3;
     }
     
     return self;
+}
+
+- (int)ID
+{
+    return _ID;
 }
 
 - (void)StartRun
@@ -106,6 +113,44 @@
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:(formater ? formater : @"yyyy-MM-dd HH:mm:ss")];
     return [dateFormatter stringFromDate:date];
+}
+
++ (NSData *)ValidCRCWithHost:(NSData *)data
+{
+    /// <summary>
+    /// 验证校验码是否正确
+    /// </summary>
+    /// <param name="data"></param>
+    if (![data isKindOfClass:[NSData class]] || data.length < 10)
+        return nil;
+    
+    
+    NSInteger length = data.length;
+    Byte *Buf = (Byte *)[data bytes];
+    //固件升级包开头结尾标志(FEEF...FEEF)
+    if (Buf[0] != 0xFE || Buf[1] != 0xEF || Buf[length-2] != 0xFE || Buf[length-1] != 0xEF) {
+        //如果任何一个对应错误，则返回空
+        return nil;
+    }
+    
+    data = [data subdataWithRanges:NSMakeRange(2, length-4)];
+    @try {
+        NSData *infoArea = [data subdataWithRanges:NSMakeRange(0, 4)];
+        long type = [[infoArea subdataWithRange:NSMakeRange(0, 1)] parseInt:16];
+        long fileVer = [[infoArea subdataWithRanges:NSMakeRange(1, 1)] parseInt:16];
+        float viewVer = [[infoArea subdataWithRanges:NSMakeRange(2, 2)] parseInt:16]/100.0f;
+        NSLog(@"固件类型:%ld,固件型号:iFace SP[%ld],固件版本号:%.2f",type,fileVer,viewVer);
+    }
+    @catch (NSException *exception) {
+        ;
+    }
+    
+    BOOL result = [Tools ValidCRCWithHost:data];
+    if (!result) {
+        return nil;
+    }
+    data = [data subdataWithRanges:NSMakeRange(4, length-6)];
+    return data;
 }
 
 NSStringEncoding getEncode()
