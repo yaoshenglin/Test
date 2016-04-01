@@ -181,16 +181,12 @@ int main(int argc, const char * argv[])
         //NSData *data = [NSData dataWithContentsOfFile:path];
         //data = [Rooms ValidCRCWithHost:data];
         
-        NSString *urlStr = @"Http://www.baidu.com";
-        NSString *value = [urlStr lowercaseString];
-        if ([value hasPrefix:@"http://"]) {
-            urlStr = [urlStr substringFromIndex:7];
-        }
-        else if ([value hasPrefix:@"https://"]) {
-            urlStr = [urlStr substringFromIndex:8];
-        }
+        NSString *path = @"/Users/Yin-Mac/Library/MobileDevice/Provisioning Profiles/89de85c3-0bd7-4ae1-a4f5-3b5c481d567e.mobileprovision";
+        NSData *data = [NSData dataWithContentsOfFile:path];
+        NSStringEncoding encoding = NSASCIIStringEncoding;
+        NSString *str = [[NSString alloc] initWithData:data encoding:encoding];
         
-        NSLog(@"%@",urlStr);
+        NSLog(@"%@",str);
         
     }
     
