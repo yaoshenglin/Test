@@ -181,13 +181,18 @@ int main(int argc, const char * argv[])
         //NSData *data = [NSData dataWithContentsOfFile:path];
         //data = [Rooms ValidCRCWithHost:data];
         
-        NSString *path = @"/Users/Yin-Mac/Library/MobileDevice/Provisioning Profiles/89de85c3-0bd7-4ae1-a4f5-3b5c481d567e.mobileprovision";
-        NSData *data = [NSData dataWithContentsOfFile:path];
-        NSStringEncoding encoding = NSASCIIStringEncoding;
-        NSString *str = [[NSString alloc] initWithData:data encoding:encoding];
+//        NSString *path = @"/Users/Yin-Mac/Library/MobileDevice/Provisioning Profiles/89de85c3-0bd7-4ae1-a4f5-3b5c481d567e.mobileprovision";
+//        NSData *data = [NSData dataWithContentsOfFile:path];
+//        NSStringEncoding encoding = NSASCIIStringEncoding;
+//        NSString *str = [[NSString alloc] initWithData:data encoding:encoding];
+//        
+//        NSLog(@"%@",str);
         
-        NSLog(@"%@",str);
-        
+        NSTask *task = [[NSTask alloc] init];
+        [task setLaunchPath:@"/usr/bin/security"];
+        [task setArguments:@[@"cms -D -i  /Users/Yin-Mac/Desktop/未命名文件夹/iFace.app/embedded.mobileprovision"]];
+        [task launch];
+        [task waitUntilExit];
     }
     
     return 0;
