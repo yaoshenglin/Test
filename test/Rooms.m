@@ -192,7 +192,7 @@ NSStringEncoding getEncode()
     [self requestWithUrl:urlString];
 }
 
-+ (void)requestWithUrl:(NSString *)urlString
++ (NSArray *)requestWithUrl:(NSString *)urlString
 {
     NSDate *date = [NSDate date];
     NSError *error = nil;
@@ -217,7 +217,7 @@ NSStringEncoding getEncode()
         }else{
             NSLog(@"图片下载失败");
         }
-        return;
+        return nil;
     }
     
     NSStringEncoding GBK = NSUTF8StringEncoding;
@@ -236,7 +236,13 @@ NSStringEncoding getEncode()
     }
     //NSLog(@"%@",result);
     if (result.length > 0) {
-        NSString *path = @"/Users/Yin-Mac/Documents/Caches";
+        NSString *path = @"~/Desktop";
+        path = [path stringByExpandingTildeInPath];
+        NSArray *listPath = [path componentsSeparatedByString:@"/Desktop"];
+        if (listPath.count > 1) {
+            path = listPath.firstObject;
+            path = [path stringByAppendingPathComponent:@"Public/xml文件合集/"];
+        }
         path = [path stringByAppendingPathComponent:[urlString lastPathComponent]];
         path = [path stringByAppendingString:@".xml"];
         [result writeToFile:path atomically:YES encoding:NSUTF8StringEncoding error:&error];
@@ -245,11 +251,13 @@ NSStringEncoding getEncode()
         }
     }
     
-    [Rooms ParseXmlWithString:result];
     
     NSTimeInterval time = [[NSDate date] timeIntervalSinceDate:date];
     
     NSLog(@"time : %f s",time);
+    
+    NSArray *listValue = [Rooms ParseXmlWithString:result];
+    return listValue;
 }
 
 + (void)startRequest:(NSMutableURLRequest *)request method:(NSString *)methodName delegate:(id)delegate
@@ -313,13 +321,15 @@ NSStringEncoding getEncode()
      }];
 }
 
-+ (void)ParseXmlWithString:(NSString *)stringL
++ (NSArray *)ParseXmlWithString:(NSString *)stringL
 {
     NSError *error=nil;
     GDataXMLDocument *pXMLdocument = [[GDataXMLDocument alloc] initWithHTMLString:stringL error:&error];
     if (error!=NULL) {
         NSLog(@"%@",error.localizedDescription);
     }
+    
+    NSMutableArray *listValue = [NSMutableArray array];
     
     if (stringL.length <= 0) {
         //msg = @"请求失败";
@@ -342,9 +352,14 @@ NSStringEncoding getEncode()
                 result = [result stringByReplacingOccurrencesOfString:@"'" withString:@""];
             }
             
-            NSLog(@"%@",result);
+            if (result.length > 0) {
+                [listValue addObject:result];
+            }
+            //NSLog(@"%@",result);
         }
     }
+    
+    return [NSArray arrayWithArray:listValue];
 }
 
 + (void)ParseData:(GDataXMLNode *)node list:(NSMutableArray *)list
@@ -363,6 +378,40 @@ NSStringEncoding getEncode()
         
         [list addObject:node.stringValue];
     }
+}
+
++ (NSArray *)ParseDataFromIFace
+{
+    NSString *path = @"/Users/xy/Public/xml文件合集/help.xml";
+    NSString *result = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+    NSArray *list = [Rooms ParseXmlWithString:result];
+    NSMutableArray *listValue = [NSMutableArray array];
+    for (NSString *str in list) {
+        NSString *value = [str replaceString:@" 处的服务" withString:@""];
+        value = [value replaceString:@" 处的操作" withString:@""];
+        if ([value hasPrefix:@"http://192.168.11.9"]) {
+            NSArray *listCom = [value componentSeparatedByString:@"/"];
+            value = listCom.lastObject;
+            if (![value isEqualToString:@"api_v2"]) {
+                [listValue addObject:value];
+                NSLog(@"%@",value);
+            }
+        }
+    }
+    
+    list = [NSArray arrayWithArray:listValue];
+    for (NSString *value in list) {
+        NSInteger loc = [listValue indexOfObject:value];
+        if (loc >= 0) {
+            [listValue removeObjectAtIndex:loc];
+        }
+        
+        if ([listValue containsObject:value]) {
+            NSLog(@"存在相同的值,%@",value);
+        }
+    }
+    
+    return listValue;
 }
 
 + (void)PostJson

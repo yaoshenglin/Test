@@ -29,7 +29,8 @@
 
 #pragma mark request
 + (void)startRequest;
-+ (void)requestWithUrl:(NSString *)urlString;
++ (NSArray *)requestWithUrl:(NSString *)urlString;
++ (NSArray *)ParseXmlWithString:(NSString *)stringL;
 
 + (void)PostJson;
 
