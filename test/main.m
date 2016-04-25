@@ -25,21 +25,7 @@ typedef NS_OPTIONS(NSUInteger, TQRichTextRunTypeList)
 };
 
 #import <Foundation/Foundation.h>
-#include <arpa/inet.h>
-#include <netdb.h>
-#include <math.h>
-#include <netinet/in.h>
-#import "DeviceModel.h"
-#import "Tools.h"
-#import "Rooms.h"
-#import "Encoder.h"
-#import "PrintObject.h"
-#import "DeleteFile.h"
-#import "EnumType.h"
-#import "DB.h"
-#import "HTTPRequest.h"
-#import "Ping.h"
-#import "Brands.h"
+#import "Header.h"
 
 #define var(v) [NSString stringWithFormat:@"%s",#v]
 #define Screen_Width 320.0f

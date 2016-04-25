@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1423F6E21CCB14B1005310DE /* UrlInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1423F6E11CCB14B1005310DE /* UrlInfo.m */; };
 		8E4BC55E18BF30D90089158C /* Encoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E4BC55D18BF30D90089158C /* Encoder.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		8E5B30A4187DBE22007A9F86 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E5B30A3187DBE22007A9F86 /* AddressBook.framework */; };
 		8E7F7C8518CFEE7700595CFE /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E7F7C8218CFEE7700595CFE /* NSData+Base64.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -50,6 +51,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1423F6DF1CCB1435005310DE /* Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Header.h; sourceTree = "<group>"; };
+		1423F6E01CCB14B1005310DE /* UrlInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UrlInfo.h; sourceTree = "<group>"; };
+		1423F6E11CCB14B1005310DE /* UrlInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UrlInfo.m; sourceTree = "<group>"; };
 		8E4BC55818BF17140089158C /* a.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = a.txt; sourceTree = "<group>"; };
 		8E4BC55C18BF30D90089158C /* Encoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Encoder.h; sourceTree = "<group>"; };
 		8E4BC55D18BF30D90089158C /* Encoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Encoder.m; sourceTree = "<group>"; };
@@ -177,8 +181,11 @@
 				E26F7AD51ABFB8FA001B4E3C /* DeviceModel.m */,
 				E2AF3ABF1B12B9DD00EA0333 /* Ping.h */,
 				E2AF3AC01B12B9DD00EA0333 /* Ping.m */,
+				1423F6E01CCB14B1005310DE /* UrlInfo.h */,
+				1423F6E11CCB14B1005310DE /* UrlInfo.m */,
 				E2C7A02C1B44E5130011EC75 /* Brands.h */,
 				E2C7A02D1B44E5130011EC75 /* Brands.m */,
+				1423F6DF1CCB1435005310DE /* Header.h */,
 				E2E75D451C7FF9DD009C1581 /* 5.txt */,
 				E22655BA1904F6360058DEA6 /* Tools */,
 				8E9DC31A187AEF6200CB5109 /* Supporting Files */,
@@ -293,6 +300,7 @@
 				8E7F7C8618CFEE7700595CFE /* StringEncryption.m in Sources */,
 				E2C7A02E1B44E5130011EC75 /* Brands.m in Sources */,
 				E24CA4D2199B080F00E54A9E /* PrintObject.m in Sources */,
+				1423F6E21CCB14B1005310DE /* UrlInfo.m in Sources */,
 				8E88C15618D0818F00E8137B /* decodeString.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
