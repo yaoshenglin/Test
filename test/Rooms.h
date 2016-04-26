@@ -32,6 +32,8 @@
 + (NSArray *)requestWithUrl:(NSString *)urlString;
 + (NSArray *)ParseXmlWithString:(NSString *)stringL;
 
++ (NSArray *)ParseDataFromIFace;
+
 + (void)PostJson;
 
 + (NSDate *)dateWith:(NSString *)hourStr week:(Week)weekDay;

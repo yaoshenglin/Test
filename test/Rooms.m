@@ -411,7 +411,7 @@ NSStringEncoding getEncode()
         }
     }
     
-    return listValue;
+    return list;
 }
 
 + (void)PostJson
