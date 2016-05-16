@@ -90,6 +90,8 @@ void setUserData(id obj,NSString *key);
 
 + (NSString *)hexStringFromString:(NSString *)string;
 
+void CharLog(NSString *format, ...);
+
 #pragma mark - =======去掉数字和小数点之外的所有字符================
 +(NSString *)ConvertNum:(NSString *)num;
 

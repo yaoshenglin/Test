@@ -376,6 +376,19 @@ void setUserData(id obj,NSString *key)
     return dic;
 }
 
+void CharLog(NSString *format, ...)
+{
+    va_list arglist;
+    va_start(arglist, format);
+    NSString *outStr = [[NSString alloc] initWithFormat:format arguments:arglist];
+    va_end(arglist);
+    
+    outStr = [NSString stringWithString:outStr];
+#if DEBUG
+    printf("%s",outStr.UTF8String);
+#endif
+}
+
 #pragma mark - =======去掉数字和小数点之外的所有字符================
 +(NSString *)ConvertNum:(NSString *)num
 {
