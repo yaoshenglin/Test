@@ -179,6 +179,7 @@ NSString* getPartString(NSString *string,NSString *aString,NSString *bString);
 - (NSString *)getCStringWithLen:(int)len;
 
 - (BOOL)evaluateWithFormat:(NSString *)regex;
+- (NSArray *)regularExpressionWithPattern:(NSString *)regulaStr;
 
 //写入文件结尾
 - (void)writeToEndOfFileAtPath:(NSString *)path headContent:(WriteBlock)block;

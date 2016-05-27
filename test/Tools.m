@@ -528,10 +528,23 @@ void CharLog(NSString *format, ...)
     return list.firstObject;
 }
 
++ (NSString *)getUsersPath
+{
+    NSString *path = NSHomeDirectory();
+    NSArray *listPath = [path componentSeparatedByString:@"/Library"];
+    if (listPath.count > 0) {
+        path = listPath.firstObject;
+        //path = [path stringByAppendingPathComponent:@"Desktop/tmp/智能家居/QQ登录信息.txt"];
+    }
+    
+    return path;
+}
+
 + (NSDictionary *)readCustomPath
 {
     NSError *error = nil;
-    NSString *Path = @"/Users/Yin-Mac/Documents/Caches/DBFile.txt";
+    NSString *Path = [Tools getUsersPath];
+    Path = [Path stringByAppendingPathComponent:@"Documents/Caches/DBFile.txt"];
     NSString *content = [NSString stringWithContentsOfFile:Path encoding:NSUTF8StringEncoding error:&error];
     NSDictionary *dic = [content convertToDic];//dic[@"iFace"]
     return dic;
@@ -1446,6 +1459,30 @@ NSString* getPartString(NSString *string,NSString *aString,NSString *bString)
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex];
     BOOL isValid = [predicate evaluateWithObject:self];
     return isValid;
+}
+
+- (NSArray *)regularExpressionWithPattern:(NSString *)regulaStr
+{
+    NSMutableArray *array = [NSMutableArray array];
+    NSError *error = nil;
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:regulaStr
+                                                                           options:NSRegularExpressionCaseInsensitive
+                                                                             error:&error];
+    
+    if (error == nil)
+    {
+        NSMatchingOptions options = NSMatchingReportProgress;
+        NSTextCheckingResult *result = [regex firstMatchInString:self options:options range:NSMakeRange(0, [self length])];
+        if (result) {
+            for (int i=0; i<result.numberOfRanges; i++) {
+                NSRange range = [result rangeAtIndex:i];
+                NSString *value = [self substringWithRange:range];
+                [array addObject:value];
+            }
+        }
+    }
+    
+    return [NSArray arrayWithArray:array];
 }
 
 - (long)parseInt:(int)type
