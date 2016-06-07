@@ -38,6 +38,7 @@ CGFloat *colorWithHex(NSString *stringToConvert);
 
 +(NSString *)ParseWith:(NSString *)content encoding:(NSStringEncoding)encoding;
 
++ (NSString *)getUsersPath;
 + (NSDictionary *)readCustomPath;//读取自定义路径文件
 
 + (void)alterPicData;
