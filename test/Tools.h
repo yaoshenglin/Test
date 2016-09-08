@@ -45,6 +45,10 @@ CGFloat *colorWithHex(NSString *stringToConvert);
 
 + (BOOL)VerifyData:(NSData *)buffer;
 
++ (NSArray *)getAllPropertiesWithClass:(Class)class;
+
++ (NSString *)identifierWith:(int)index withFormat:(NSString *)format, ...;
+
 #pragma mark - --------解密字符串
 + (NSString *)decryptString:(NSString *)str;
 + (NSString *)decryptGBKString:(NSString *)str;
@@ -93,6 +97,8 @@ void setUserData(id obj,NSString *key);
 
 void CharLog(NSString *format, ...);
 
++ (NSString *)ConvertCGRect:(NSString *)rectStr;
+
 #pragma mark - =======去掉数字和小数点之外的所有字符================
 +(NSString *)ConvertNum:(NSString *)num;
 
@@ -131,6 +137,8 @@ NSString* getPartString(NSString *string,NSString *aString,NSString *bString);
 + (NSData *)translationData:(NSData *)data1;
 
 + (BOOL)checkObjFrom:(NSString *)path to:(NSString *)path1;
+
++ (NSDictionary *)getJsonDataFromFile;
 
 - (NSString *)nameWithInstance:(id)instance;
 //解析域名
@@ -227,6 +235,7 @@ NSString* getPartString(NSString *string,NSString *aString,NSString *bString);
 
 - (NSDictionary *)dictionaryWithDictionary:(NSDictionary *)dict;
 - (NSString *)convertToString;
+- (NSString *)stringUsingASCIIEncoding;
 
 @end
 
@@ -241,6 +250,11 @@ NSString* getPartString(NSString *string,NSString *aString,NSString *bString);
 @interface NSObject (NSObject)
 
 - (NSData *)archivedData;
+
+- (NSArray *)getObjectPropertyList;
+- (NSArray *)getObjectIvarList;
+
+- (id)copyObject;
 
 @end
 

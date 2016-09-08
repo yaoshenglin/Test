@@ -17,6 +17,7 @@
 @property (nonatomic) int ID;
 @property (nonatomic) int age;
 @property (retain, nonatomic) NSString *name;
+@property (retain, nonatomic) NSString *date;
 
 - (id)initWithID:(int)theID name:(NSString *)theName;
 - (void)StartRun;

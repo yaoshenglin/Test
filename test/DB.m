@@ -751,7 +751,7 @@ static sqlite3 *db;
         [dictionary setObject:list forKey:table];
     }
     
-    NSString *path = @"/Users/Yin-Mac/Documents/Caches/空调.plist";
+    NSString *path = @"/Users/xy/Documents/Caches/空调.plist";
     [dictionary writeToFile:path atomically:YES];
 }
 
@@ -816,7 +816,7 @@ static sqlite3 *db;
         }
     }
     
-    path = @"/Users/Yin-Mac/Documents/Caches/china_address.txt";
+    path = @"/Users/xy/Documents/Caches/china_address.txt";
     NSData *data = [dicDatas archivedData];
     [data writeToFile:path atomically:YES];
 }

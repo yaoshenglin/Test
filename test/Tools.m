@@ -16,13 +16,13 @@
 
 @implementation Tools
 
-+(Tools *)init
++ (Tools *)init
 {
     Tools *tool = [[Tools alloc] init];
     return tool;
 }
 
-+(NSString *)convertNullString:(NSString *)aString
++ (NSString *)convertNullString:(NSString *)aString
 {
     if (aString==NULL) {
         return @"";
@@ -56,7 +56,7 @@
 
 #pragma ***********************************************************************************************
 #pragma mark 拿取文件路径
-+(NSString *)dataFilePath:(NSString *)fileName {
++ (NSString *)dataFilePath:(NSString *)fileName {
 	
 	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
@@ -94,9 +94,9 @@
     return result == 0;
 }
 
-+(id)readFileWithPath:(NSString *)Path
++ (id)readFileWithPath:(NSString *)Path
 {
-    //NSString *Path = @"/Users/Yin-Mac/Documents/任务/外卖单.txt";//外卖单.
+    //NSString *Path = @"/Users/xy/Documents/任务/外卖单.txt";//外卖单.
     NSData *data = [[NSMutableData alloc] initWithContentsOfFile:Path];
     NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
     NSString *key = @"我的程序";
@@ -149,7 +149,7 @@ NSString *pooledString(NSString *aString,NSString *bString,NSString *midString)
 }
 
 #pragma mark 获取系统时间
-+(NSString *)getDateWithFormat:(NSString *)format
++ (NSString *)getDateWithFormat:(NSString *)format
 {
     NSDateFormatter *data_time = [[NSDateFormatter alloc]init];
     [data_time setDateFormat:format];//@"yyyy-MM-dd HH:mm:ss"
@@ -157,7 +157,7 @@ NSString *pooledString(NSString *aString,NSString *bString,NSString *midString)
 }
 
 #pragma mark 字符转日期
-+(NSDate *)dateFromString:(NSString *)str withDateFormater:(NSString *)formater
++ (NSDate *)dateFromString:(NSString *)str withDateFormater:(NSString *)formater
 {
 	NSString *strDate = [str stringByReplacingOccurrencesOfString:@"T" withString:@" "];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
@@ -166,7 +166,7 @@ NSString *pooledString(NSString *aString,NSString *bString,NSString *midString)
 }
 
 #pragma mark 日期比较
-+(BOOL)compareDate:(NSDate *)aDate and:(NSDate *)bDate
++ (BOOL)compareDate:(NSDate *)aDate and:(NSDate *)bDate
 {
     NSDate * now = [NSDate date];
     NSTimeInterval aBetween = [aDate timeIntervalSinceDate:now];
@@ -197,8 +197,28 @@ void setUserData(id obj,NSString *key)
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
++ (Byte)byteWithInt:(int)time
+{
+    char *p_time = (char *)&time;
+    
+    char str_time[4] = {0};
+    
+    for(int i= 0 ;i < 4 ;i++)
+        
+    {
+        
+        str_time[i] = *p_time;
+        
+        p_time ++;
+        
+    }
+    
+    Byte byte = (Byte)str_time;
+    return byte;
+}
+
 #pragma mark 获得纯数字
-+(NSString *)ConvertPureNum:(NSString *)num
++ (NSString *)ConvertPureNum:(NSString *)num
 {
     if (![num isKindOfClass:[NSString class]]) {
         return NULL;
@@ -215,7 +235,7 @@ void setUserData(id obj,NSString *key)
     return num;
 }
 
-+(BOOL)checkCardIDWith:(NSString *)CardID
++ (BOOL)checkCardIDWith:(NSString *)CardID
 {
     CardID = [CardID stringByReplacingOccurrencesOfString:@" " withString:@""];
     if (CardID.length < 19) {
@@ -389,8 +409,15 @@ void CharLog(NSString *format, ...)
 #endif
 }
 
++ (NSString *)ConvertCGRect:(NSString *)rectStr
+{
+    CGRect rect = NSRectFromString(rectStr);
+    NSString *result = [NSString stringWithFormat:@"CGRectMake(%.f,%.f,%.f,%.f)",rect.origin.x,rect.origin.y,rect.size.width,rect.size.height];
+    return result;
+}
+
 #pragma mark - =======去掉数字和小数点之外的所有字符================
-+(NSString *)ConvertNum:(NSString *)num
++ (NSString *)ConvertNum:(NSString *)num
 {
     if (![num isKindOfClass:[NSString class]]) {
         return NULL;
@@ -554,7 +581,7 @@ void CharLog(NSString *format, ...)
 {
     NSString *pic = @"http://pic34.nipic.com/20131106/9903781_085713979000_2.jpg";
     NSError *error = nil;
-    NSString *path = @"/Users/Yin-Mac/Desktop/tmp/智能家居/QQ登录信息.txt";
+    NSString *path = @"/Users/xy/Desktop/tmp/智能家居/QQ登录信息.txt";
     NSString *content = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:&error];
     if (error) {
         NSLog(@"json字符串转化失败,%@",error.localizedDescription);
@@ -589,6 +616,37 @@ void CharLog(NSString *format, ...)
     Byte reCrc2 = value[length-1];
     
     return (crc1 == reCrc1) && (crc2 == reCrc2);
+}
+
++ (NSArray *)getAllPropertiesWithClass:(Class)class
+{
+    u_int count;
+    objc_property_t *properties  =class_copyPropertyList(class, &count);
+    NSMutableArray *propertiesArray = [NSMutableArray arrayWithCapacity:count];
+    for (int i = 0; i<count; i++)
+    {
+        const char* propertyName =property_getName(properties[i]);
+        [propertiesArray addObject: [NSString stringWithUTF8String: propertyName]];
+    }
+    free(properties);
+    return propertiesArray;
+}
+
++ (NSString *)identifierWith:(int)index withFormat:(NSString *)format, ...
+{
+    NSString *identifier = [NSString stringWithFormat:@"%d",index];
+    if (format) {
+        va_list arglist;
+        va_start(arglist, format);
+        NSString *outStr = [[NSString alloc] initWithFormat:format arguments:arglist];
+        va_end(arglist);
+        
+        if (outStr) {
+            identifier = [identifier stringByAppendingString:outStr];
+        }
+    }
+    
+    return identifier;
 }
 
 #pragma mark - --------解密字符串
@@ -1082,6 +1140,24 @@ NSString* getPartString(NSString *string,NSString *aString,NSString *bString)
     }
     
     return result;
+}
+
++ (NSDictionary *)getJsonDataFromFile
+{
+    NSError *error = nil;
+    NSString *path = @"/Users/xy/Documents/CrashInfo/json数据.txt";
+    NSString *value = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:&error];
+    NSData *data = [value dataUsingEncoding:NSUTF8StringEncoding];
+    if (!data) {
+        NSLog(@"%@",error.localizedDescription);
+        return nil;
+    }
+    
+    NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:&error];
+    if (error) {
+        NSLog(@"%@",error.localizedDescription);
+    }
+    return json;
 }
 
 #import <objc/runtime.h>
@@ -1713,6 +1789,14 @@ NSString* getPartString(NSString *string,NSString *aString,NSString *bString)
     return result;
 }
 
+- (NSString *)stringUsingASCIIEncoding
+{
+    NSString *desc = self.description;
+    const char *cString = [desc cStringUsingEncoding:NSUTF8StringEncoding];
+    desc = [NSString stringWithCString:cString encoding:NSNonLossyASCIIStringEncoding];
+    return desc;
+}
+
 @end
 
 #pragma mark - --------NSDate------------------------
@@ -1740,6 +1824,53 @@ NSString* getPartString(NSString *string,NSString *aString,NSString *bString)
 {
     NSData *data = [NSKeyedArchiver archivedDataWithRootObject:self];
     return data;
+}
+
+#pragma mark - 通过对象获取全部属性
+- (NSArray *)getObjectPropertyList
+{
+    NSArray *list = nil;
+    unsigned int propsCount;
+    objc_property_t *props = class_copyPropertyList([self class], &propsCount);
+    list = propsCount>0 ? @[] : nil;
+    for(int i = 0;i < propsCount; i++)
+    {
+        objc_property_t prop = props[i];
+        
+        const char *name = property_getName(prop);
+        NSString *propName = [NSString stringWithUTF8String:name];
+        list = [list arrayByAddingObject:propName];
+    }
+    
+    return list;
+}
+
+- (NSArray *)getObjectIvarList
+{
+    NSArray *list = nil;
+    unsigned int propsCount;
+    Ivar *ivar = class_copyIvarList([self class], &propsCount);
+    list = propsCount>0 ? @[] : nil;
+    for(int i = 0;i < propsCount; i++) {
+        Ivar var = ivar[i];
+        const char *name = ivar_getName(var);
+        NSString *propName = [NSString stringWithUTF8String:name];
+        list = [list arrayByAddingObject:propName];
+    }
+    
+    return list;
+}
+
+- (id)copyObject
+{
+    id obj = [[self.class alloc] init];
+    NSArray *listPro = [self getObjectIvarList];
+    for (NSString *key in listPro) {
+        id value = [self valueForKey:key];
+        [obj setValue:value forKey:key];
+    }
+    
+    return obj;
 }
 
 @end

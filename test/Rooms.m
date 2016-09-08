@@ -39,6 +39,13 @@
     return self;
 }
 
+- (NSString *)description
+{
+    [super description];
+    NSString *format = [NSString stringWithFormat:@"ID = %d, age = %d, name = %@, date = %@",_ID,_age,_name,_date];
+    return format;
+}
+
 - (id)initWithID:(int)theID name:(NSString *)theName
 {
     self = [super init];
@@ -210,7 +217,7 @@ NSStringEncoding getEncode()
     if ([urlString hasSuffix:@".jpg"] || [urlString hasSuffix:@".png"]) {
         if (data) {
             NSString *last = [urlString lastPathComponent];
-            NSString *path = @"/Users/Yin-Mac/Desktop/Chaches";
+            NSString *path = @"/Users/xy/Desktop/Chaches";
             path = [path stringByAppendingPathComponent:last];
             [data writeToFile:path atomically:YES];
             NSLog(@"图片保存成功");

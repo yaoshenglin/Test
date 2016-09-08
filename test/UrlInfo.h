@@ -32,6 +32,10 @@
 @property (retain, nonatomic) NSString *query;
 @property (retain, nonatomic) NSString *relativePath; // The same as path if baseURL is nil
 
+@property (readonly, copy) NSArray<NSString *> *pathComponents;//每个部分
+@property (readonly, copy) NSString *lastPathComponent;//最后部分
+@property (readonly, copy) NSString *pathExtension;//目标文件的文件类型
+
 /* Determines if a given URL string's path represents a directory (i.e. the path component in the URL string ends with a '/' character). This does not check the resource the URL refers to.
  */
 @property (readonly) BOOL hasDirectoryPath NS_AVAILABLE(10_11, 9_0);

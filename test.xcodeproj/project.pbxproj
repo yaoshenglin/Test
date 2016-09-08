@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1423F6E21CCB14B1005310DE /* UrlInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1423F6E11CCB14B1005310DE /* UrlInfo.m */; };
+		14429AEF1D7EC4F5002E20E2 /* ExpendFileAttributes.m in Sources */ = {isa = PBXBuildFile; fileRef = 14429AEE1D7EC4F5002E20E2 /* ExpendFileAttributes.m */; };
 		8E4BC55E18BF30D90089158C /* Encoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E4BC55D18BF30D90089158C /* Encoder.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		8E5B30A4187DBE22007A9F86 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E5B30A3187DBE22007A9F86 /* AddressBook.framework */; };
 		8E7F7C8518CFEE7700595CFE /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E7F7C8218CFEE7700595CFE /* NSData+Base64.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -54,6 +55,8 @@
 		1423F6DF1CCB1435005310DE /* Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Header.h; sourceTree = "<group>"; };
 		1423F6E01CCB14B1005310DE /* UrlInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UrlInfo.h; sourceTree = "<group>"; };
 		1423F6E11CCB14B1005310DE /* UrlInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UrlInfo.m; sourceTree = "<group>"; };
+		14429AED1D7EC4F5002E20E2 /* ExpendFileAttributes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExpendFileAttributes.h; sourceTree = "<group>"; };
+		14429AEE1D7EC4F5002E20E2 /* ExpendFileAttributes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExpendFileAttributes.m; sourceTree = "<group>"; };
 		8E4BC55818BF17140089158C /* a.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = a.txt; sourceTree = "<group>"; };
 		8E4BC55C18BF30D90089158C /* Encoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Encoder.h; sourceTree = "<group>"; };
 		8E4BC55D18BF30D90089158C /* Encoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Encoder.m; sourceTree = "<group>"; };
@@ -186,6 +189,8 @@
 				E2C7A02C1B44E5130011EC75 /* Brands.h */,
 				E2C7A02D1B44E5130011EC75 /* Brands.m */,
 				1423F6DF1CCB1435005310DE /* Header.h */,
+				14429AED1D7EC4F5002E20E2 /* ExpendFileAttributes.h */,
+				14429AEE1D7EC4F5002E20E2 /* ExpendFileAttributes.m */,
 				E2E75D451C7FF9DD009C1581 /* 5.txt */,
 				E22655BA1904F6360058DEA6 /* Tools */,
 				8E9DC31A187AEF6200CB5109 /* Supporting Files */,
@@ -295,6 +300,7 @@
 				8E7F7C8518CFEE7700595CFE /* NSData+Base64.m in Sources */,
 				E260927219C84B62002F25A2 /* GDataXMLNode.m in Sources */,
 				E238D53018F3EBCC00A125F2 /* DB.m in Sources */,
+				14429AEF1D7EC4F5002E20E2 /* ExpendFileAttributes.m in Sources */,
 				E245FCD11969272500683FDC /* Rooms.m in Sources */,
 				E2296A95190A0A0A00F78507 /* DeleteFile.m in Sources */,
 				8E7F7C8618CFEE7700595CFE /* StringEncryption.m in Sources */,

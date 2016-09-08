@@ -49,7 +49,7 @@
 
 + (void)test
 {
-    NSArray *arrFileName = [DeleteFile getFileInDirectoryByPath:@"/Users/Yin-Mac/Pictures/首页pic/大图标"];
+    NSArray *arrFileName = [DeleteFile getFileInDirectoryByPath:@"/Users/xy/Pictures/首页pic/大图标"];
     for (NSString *str in arrFileName) {
         if (![str hasSuffix:@"@2x.png"]) {
             NSLog(@"%@",str);

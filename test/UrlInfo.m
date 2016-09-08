@@ -30,6 +30,12 @@
         _parameterString = url.parameterString;
         _query = url.query;
         _relativePath = url.relativePath;
+        
+        _pathComponents = url.pathComponents;
+        _lastPathComponent = url.lastPathComponent;
+        _pathExtension = url.pathExtension;
+        
+        _hasDirectoryPath = url.hasDirectoryPath;
     }
     
     return self;
