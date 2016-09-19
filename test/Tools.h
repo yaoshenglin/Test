@@ -131,6 +131,12 @@ NSString* getPartString(NSString *string,NSString *aString,NSString *bString);
 + (NSArray *)getAllFileNameByPath:(NSString *)path;
 + (NSDictionary *)getFileAttributesByPath:(NSString *)path;
 
+//为文件增加一个扩展属性
++ (BOOL)addExtendedAttributeWithPath:(NSString *)path key:(NSString *)key value:(NSString *)stringValue;
++ (BOOL)addExtendedAttributeWithPath:(NSString *)path attributes:(NSDictionary *)attributes;
+//读取文件扩展属性
++ (NSString *)readExtendedAttributeWithPath:(NSString *)path key:(NSString *)key;
+
 + (NSStringEncoding)getGBKEncoding;
 
 //门禁发送数据中7E、7F部分进行转译

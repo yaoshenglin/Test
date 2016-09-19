@@ -40,11 +40,14 @@ NSString *printHead(NSString *filePath)
 {
     @autoreleasepool {
         filePath = filePath ?: @"";
-        NSLog(@"本机IP地址 : %@",[[Tools localIPAddress] convertToString]);
+        NSLog(@"本机IP地址 : %@",[[Tools localIPAddress] stringUsingASCIIEncoding]);
         NSDictionary *dic = [Tools readCustomPath];
         NSString *path = dic[@"iFace"];
         path = [path stringByAppendingPathComponent:filePath];
-        Log(path);
+        if (path) {
+            Log(path);
+        }
+        
         printf("---------------------------------------\n");
         return path;
     }

@@ -1,0 +1,5 @@
+/* Localized versions of Info.plist keys */
+
+CFBundleDisplayName = "iFace Master";
+CFBundleDevelopmentRegion = "en";
+UseTouchIDToLogin = "Use Touch ID to log in.";
