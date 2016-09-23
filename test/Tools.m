@@ -1317,6 +1317,24 @@ NSString* getPartString(NSString *string,NSString *aString,NSString *bString)
     
 }
 
++ (NSArray *)compareFileFromPath:(NSString *)path1 toPath:(NSString *)path2
+{
+    //查找路径2中不存在的文件
+    NSMutableArray *list = [NSMutableArray array];
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSArray *listFile1 = [fileManager contentsOfDirectoryAtPath:path1 error:nil];
+    NSArray *listFile2 = [fileManager contentsOfDirectoryAtPath:path2 error:nil];
+    
+    for (NSString *fileName in listFile1) {
+        if (![listFile2 containsObject:fileName]) {
+            [list addObject:fileName];
+            //NSLog(@"%@",fileName);
+        }
+    }
+    
+    return [NSArray arrayWithArray:list];
+}
+
 @end
 
 #pragma mark - ---------NSString---------------------

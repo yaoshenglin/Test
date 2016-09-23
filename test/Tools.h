@@ -154,6 +154,8 @@ NSString* getPartString(NSString *string,NSString *aString,NSString *bString);
 + (NSArray *)getAllEncoding;
 + (NSData*)replaceCRCForInfrared:(NSData *)buffer;
 
++ (NSArray *)compareFileFromPath:(NSString *)path1 toPath:(NSString *)path2;
+
 @end
 
 

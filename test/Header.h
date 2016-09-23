@@ -16,6 +16,7 @@
 #include <netdb.h>
 #include <math.h>
 #include <netinet/in.h>
+#include <sys/sysctl.h>
 
 #import "DeviceModel.h"
 #import "Tools.h"

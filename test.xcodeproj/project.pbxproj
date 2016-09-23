@@ -51,6 +51,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		140697D71D93DE21001F244C /* demo.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = demo.sh; sourceTree = "<group>"; };
 		14092B5A1D8F940300E1E8E2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		14092B5C1D8F945700E1E8E2 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		1423F6DF1CCB1435005310DE /* Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Header.h; sourceTree = "<group>"; };
@@ -199,6 +200,7 @@
 			children = (
 				8E9DC31C187AEF6200CB5109 /* test.1 */,
 				8E4BC55818BF17140089158C /* a.txt */,
+				140697D71D93DE21001F244C /* demo.sh */,
 				8E9DC31B187AEF6200CB5109 /* test-Prefix.pch */,
 				14092B5B1D8F940300E1E8E2 /* InfoPlist.strings */,
 				E294469A1B3CECE200FE01BE /* Localizable.strings */,

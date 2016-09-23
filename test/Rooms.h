@@ -24,6 +24,8 @@
 - (void)setNumber:(CGFloat)value;
 - (void)printValue:(CGFloat)value;
 - (NSDate *)dateFromString:(NSString *)str withDateFormater:(NSString *)formater;
+- (NSString *)getDeviceVersionInfo;
+- (NSString *)correspondVersion;
 + (NSString *)dateToString:(NSDate *)date withDateFormater:(NSString *)formater;
 + (NSData *)ValidCRCWithHost:(NSData *)data;
 

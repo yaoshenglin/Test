@@ -26,6 +26,10 @@ typedef NS_OPTIONS(NSUInteger, TQRichTextRunTypeList)
 
 #import <Foundation/Foundation.h>
 #import "Header.h"
+#include <unistd.h>
+#include <sys/types.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 #define var(v) [NSString stringWithFormat:@"%s",#v]
 #define Screen_Width 320.0f
@@ -148,6 +152,26 @@ int getMax(int *s)
     return a;
 }
 
+static int is_debugger_present(void)
+{
+    int name[4];
+    struct kinfo_proc info;
+    size_t info_size = sizeof(info);
+    
+    info.kp_proc.p_flag = 0;
+    
+    name[0] = CTL_KERN;
+    name[1] = KERN_PROC;
+    name[2] = KERN_PROC_PID;
+    name[3] = getpid();
+    
+    if (sysctl(name, 4, &info, &info_size, NULL, 0) == -1) {
+        perror("sysctl");
+        exit(-1);
+    }
+    return ((info.kp_proc.p_flag & P_TRACED) != 0);
+}
+
 int main(int argc, const char * argv[])
 {
     printHead(@"");
@@ -178,10 +202,30 @@ int main(int argc, const char * argv[])
 //        NSLog(@"%@",str);
         
         NSTask *task = [[NSTask alloc] init];
-        [task setLaunchPath:@"/usr/bin/security"];
-        [task setArguments:@[@"cms -D -i  /Users/Yin-Mac/Desktop/未命名文件夹/iFace.app/embedded.mobileprovision"]];
+        task.launchPath = @"/sbin/reboot";
+        task.arguments = @[@"sudo"];
+        
+        NSPipe *pipe = [NSPipe pipe];
+        [task setStandardOutput:pipe];
+        
         [task launch];
+        
+        NSData *data = [[pipe fileHandleForReading] readDataToEndOfFile];
+        NSString *string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        
+        NSLog(@"|:%@",string);
+        
         [task waitUntilExit];
+        
+        //查找路径2中不存在的文件
+        NSString *path1 = @"/Volumes/Apple/SVN/IOS_iFace/iFace/Images/消息";
+        NSString *path2 = @"/Volumes/Apple/SVN/iFace_ODM_Carea_IOS/carea/Images/消息";
+        
+        NSArray *list = [Tools compareFileFromPath:path1 toPath:path2];
+        
+        for (NSString *fileName in list) {
+            NSLog(@"%@",fileName);
+        }
     }
     
     return 0;
