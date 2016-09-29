@@ -20,11 +20,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "test/Tools.m"
-            timestampString = "489124264.050539"
+            timestampString = "496567054.115936"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "621"
-            endingLineNumber = "621"
+            startingLineNumber = "635"
+            endingLineNumber = "635"
             landmarkName = "+getAllPropertiesWithClass:"
             landmarkType = "5">
          </BreakpointContent>

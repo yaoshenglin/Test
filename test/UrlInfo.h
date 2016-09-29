@@ -26,7 +26,7 @@
 @property (retain, nonatomic) NSNumber *port;
 @property (retain, nonatomic) NSString *user;
 @property (retain, nonatomic) NSString *password;
-@property (retain, nonatomic) NSString *path;
+@property (retain, nonatomic) NSString *path;//完整路径
 @property (retain, nonatomic) NSString *fragment;
 @property (retain, nonatomic) NSString *parameterString;
 @property (retain, nonatomic) NSString *query;

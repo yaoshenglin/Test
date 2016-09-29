@@ -434,7 +434,7 @@ void CharLog(NSString *format, ...)
     return num;
 }
 
-+(NSString *)printDic:(NSDictionary *)dic
++ (NSString *)printDic:(NSDictionary *)dic
 {
     if (dic) {
         NSMutableString *value = [NSMutableString string];
@@ -480,7 +480,21 @@ void CharLog(NSString *format, ...)
     return result;
 }
 
-+(BOOL)otherOperation:(NSString *)FilePath suffixName:(NSString *)oldName toSuffixName:(NSString *)newName
++ (BOOL)containsChinese:(NSString *)content
+{
+    BOOL result = NO;//
+    for(int i=0; i< [content length];i++){
+        int a = [content characterAtIndex:i];
+        if( a > 0x4e00 && a < 0x9fff) {
+            result = YES;
+            break;
+        }
+    }
+    
+    return result;
+}
+
++ (BOOL)otherOperation:(NSString *)FilePath suffixName:(NSString *)oldName toSuffixName:(NSString *)newName
 {
     BOOL isDir;
     

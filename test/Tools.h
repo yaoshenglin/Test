@@ -116,6 +116,8 @@ void CharLog(NSString *format, ...);
 
 + (NSString *)getDoubleWith:(CGFloat)value;
 
++ (BOOL)containsChinese:(NSString *)content;
+
 + (void)OPTIONS;
 
 #pragma mark 生成长度为length的随机字符串

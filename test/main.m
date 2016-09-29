@@ -59,31 +59,73 @@ NSString *printHead(NSString *filePath)
     return nil;
 }
 
-void deleteCrashFile()
+NSString *deleteString(NSString *aString, NSString *bString)
 {
-    NSError *error = nil;
-    NSDictionary *dic = [Tools readCustomPath];
-    NSString *path = dic[@"iFace"];
-    path = [path stringByAppendingPathComponent:@"CrashInfo"];
+    NSArray *list = [aString componentSeparatedByString:bString];
+    NSString *value = list.firstObject;
+    return value;
+}
+
+NSArray *readChineseFromPath(NSString *path, NSMutableArray *listValue)
+{
+    BOOL isDir = NO;
+    listValue = listValue ?: [NSMutableArray array];
     NSFileManager *manager = [NSFileManager defaultManager];
-    if ([manager fileExistsAtPath:path]) {
-        NSArray *directoryContents = [[NSFileManager defaultManager] contentsOfDirectoryAtPath: path error:nil];
-        if (directoryContents.count > 0) {
-            if (![manager removeItemAtPath:path error:&error]) {
-                if (error) {
-                    NSLog(@"删除文件, %@",error.localizedDescription);
-                }else{
-                    NSLog(@"删除文件失败");
-                }
-            }else{
-                NSLog(@"删除Crash文件成功");
+    if ([manager fileExistsAtPath:path isDirectory:&isDir]) {
+        if (isDir) {
+            NSError *error = nil;
+            NSArray *listFile = [manager contentsOfDirectoryAtPath:path error:&error];
+            if (error) {
+                NSLog(@"%@",error.localizedDescription);
+            }
+            for (NSString *fileName in listFile) {
+                NSString *newPath = [path stringByAppendingPathComponent:fileName];
+                readChineseFromPath(newPath, listValue);
             }
         }else{
-            NSLog(@"Crash文件不存在");
+            NSString *fileName = path.lastPathComponent;
+            if (![fileName hasSuffix:@".m"]) {
+                return nil;
+            }
+            NSString *content = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+            content = [content replaceString:@"NSLog(@\"" withString:@"😀"];
+            content = [content replaceString:@"CTBNSLog(@\"" withString:@"😀"];
+            content = [content replaceString:@"%@\"," withString:@",\""];
+            content = [content replaceString:@"[UIImage imageNamed::@\"" withString:@"😀"];
+            content = [content replaceString:@"imageNamed:@\"" withString:@"😀"];
+            content = [content replaceString:@"imageFromLibrary:@\"" withString:@"😀"];
+            content = [content replaceString:@" img:@\"" withString:@"😀"];
+            content = [content replaceString:@" selectedImg:@\"" withString:@"😀"];
+            content = [content replaceString:@" SwitchWithImg:@\"" withString:@"😀"];
+            content = [content replaceString:@" CreateButtonWithImg:@\"" withString:@"😀"];
+            content = [content replaceString:@" pathForResource:@\"" withString:@" pathForResource:@\"✅"];
+            NSArray *list = [content componentSeparatedByString:@"@\""];
+            for (int i=0; i<list.count; i++) {
+                NSString *str = list[i];
+                if (i == 0) {
+                    continue;
+                }
+                
+                NSArray *listO = [str componentSeparatedByString:@"\""];
+                NSString *value = listO.firstObject;
+                
+                value = deleteString(value, @"#pragma mark");
+                value = deleteString(value, @" if (");
+                value = deleteString(value, @" return ");
+                value = deleteString(value, @"//");
+                value = deleteString(value, @"😀");
+                
+                if ([Tools containsChinese:value] && ![listValue containsObject:value]) {
+                    [listValue addObject:value];
+                    //content = [content stringByAppendingFormat:@"%@\n",value];
+                }
+            }
         }
     }else{
-        NSLog(@"Crash文件夹不存在");
+        NSLog(@"文件夹不存在");
     }
+    
+    return listValue;
 }
 
 void deleteImage()
@@ -142,17 +184,7 @@ NSArray *compareArray(NSArray *arr1,NSArray *arr2)
     return filter;
 }
 
-int getMax(int *s)
-{
-    int a = 0;
-    for (int i=0; i<5; i++) {
-        a = MAX(a, s[i]);
-    }
-    
-    return a;
-}
-
-static int is_debugger_present(void)
+int is_debugger_present(void)
 {
     int name[4];
     struct kinfo_proc info;
@@ -217,15 +249,20 @@ int main(int argc, const char * argv[])
         
         [task waitUntilExit];
         
-        //查找路径2中不存在的文件
-        NSString *path1 = @"/Volumes/Apple/SVN/IOS_iFace/iFace/Images/消息";
-        NSString *path2 = @"/Volumes/Apple/SVN/iFace_ODM_Carea_IOS/carea/Images/消息";
-        
-        NSArray *list = [Tools compareFileFromPath:path1 toPath:path2];
-        
-        for (NSString *fileName in list) {
-            NSLog(@"%@",fileName);
+        NSString *path = @"/Users/xy/Documents/Caches/中文表1.txt";
+        NSString *content = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+        NSArray *list = [content componentSeparatedByString:@"\n"];
+        content = @"";
+        for (int i=0; i<list.count; i++) {
+            NSString *str = list[i];
+            if (str.length <= 0) {
+                continue;
+            }
+            
+            content = [content stringByAppendingFormat:@"%@\n",str];
         }
+        [content writeToFile:path atomically:YES encoding:NSUTF8StringEncoding error:nil];
+        NSLog(@"%@",content);
     }
     
     return 0;
