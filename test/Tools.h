@@ -49,6 +49,13 @@ CGFloat *colorWithHex(NSString *stringToConvert);
 
 + (NSString *)identifierWith:(int)index withFormat:(NSString *)format, ...;
 
++ (NSDictionary *)readContentWithPath:(NSString *)path;
++ (NSDictionary *)readMobileprovisionFromProjectPath:(NSString *)path;
++ (NSDictionary *)readMobileprovisionFromName:(NSString *)fileName;
+
+#pragma mark 执行shell命令
++ (NSString *)executeShellWithScript:(NSString *)script;
+
 #pragma mark - --------解密字符串
 + (NSString *)decryptString:(NSString *)str;
 + (NSString *)decryptGBKString:(NSString *)str;
@@ -181,6 +188,7 @@ NSString* getPartString(NSString *string,NSString *aString,NSString *bString);
 - (NSDictionary *)convertToDic;
 + (NSString *)stringWith:(NSString *)string;
 
+- (NSString *)stringUsingASCIIEncoding;
 - (NSArray *)componentSeparatedByString:(NSString *)key;
 
 //移除前缀

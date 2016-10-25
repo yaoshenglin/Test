@@ -610,7 +610,7 @@ void CharLog(NSString *format, ...)
     }
 }
 
-+(BOOL) VerifyData:(NSData *)buffer
++ (BOOL) VerifyData:(NSData *)buffer
 {
     if (buffer == nil)
         return NO;
@@ -661,6 +661,70 @@ void CharLog(NSString *format, ...)
     }
     
     return identifier;
+}
+
++ (NSDictionary *)readContentWithPath:(NSString *)path
+{
+    NSMutableDictionary *dicValue = [NSMutableDictionary dictionary];
+    NSDictionary *dic = [NSDictionary dictionaryWithContentsOfFile:path];
+    [dicValue setObject:dic[@"rootObject"]?:@"" forKey:@"rootObject"];
+    NSMutableDictionary *dicContent = [NSMutableDictionary dictionary];
+    dicContent.dictionary = dic[@"objects"];
+    for (NSString *key in dicContent) {
+        NSDictionary *value = dicContent[key];
+        NSArray *listKeys = value.allKeys;
+        if ([listKeys containsObject:@"buildSettings"] && [value[@"name"] isEqualToString:@"Release"]) {
+            value = dicContent[key];
+            NSDictionary *dicSettings = value[@"buildSettings"];
+            if ([dicSettings[@"INFOPLIST_FILE"] hasSuffix:@"Info.plist"]) {
+                NSString *setKey = [NSString stringWithFormat:@"CODE_SIGN_IDENTITY(%@)",key];
+                [dicValue setObject:dicSettings[@"CODE_SIGN_IDENTITY"]?:@"" forKey:setKey];
+                value = dicSettings[@"PROVISIONING_PROFILE"];
+                if (value) {
+                    setKey = [NSString stringWithFormat:@"PROVISIONING_PROFILE(%@)",key];
+                    [dicValue setObject:value forKey:setKey];
+                }
+            }
+        }
+    }
+    
+    return dicValue;
+}
+
++ (NSDictionary *)readMobileprovisionFromProjectPath:(NSString *)path
+{
+    NSDictionary *dic = [Tools readContentWithPath:path];
+    //NSLog(@"%@",dic[@"rootObject"]);
+    NSString *fileName = [NSString stringWithFormat:@"%@.mobileprovision",dic[@"PROVISIONING_PROFILE(181360B219B9C97F00A82AC3)"]];
+    
+    NSDictionary *dicValue = [Tools readMobileprovisionFromName:fileName];
+    return dicValue;
+}
+
++ (NSDictionary *)readMobileprovisionFromName:(NSString *)fileName
+{
+    fileName = [NSString stringWithFormat:@"%@.mobileprovision",fileName];
+    NSString *profilesPath = @"/Users/xy/Library/MobileDevice/Provisioning Profiles";
+    profilesPath = [profilesPath stringByAppendingPathComponent:fileName];
+    NSData *data = [NSData dataWithContentsOfFile:profilesPath];
+    NSString *currentPath = [NSString stringWithFormat:@"/Users/xy/Documents/Caches/provision.mobileprovision"];
+    [data writeToFile:currentPath atomically:YES];
+    NSString *path2 = @"/Users/xy/Documents/Caches/project1.plist";
+    NSString *script = [NSString stringWithFormat:@"security cms -D -i %@ > %@",currentPath,path2];
+    [Tools executeShellWithScript:script];
+    NSDictionary *dicValue = [NSDictionary dictionaryWithContentsOfFile:path2];
+    return dicValue;
+}
+
+#pragma mark 执行shell命令
++ (NSString *)executeShellWithScript:(NSString *)script
+{
+    NSDictionary *errorInfo = [NSDictionary dictionary];
+    script = [NSString stringWithFormat:@"do shell script \"%@\"",script];
+    NSAppleScript *appleScript = [[NSAppleScript new] initWithSource:script];
+    NSAppleEventDescriptor *des = [appleScript executeAndReturnError:&errorInfo];
+    NSString *stringValue = des.stringValue;
+    return stringValue;
 }
 
 #pragma mark - --------解密字符串
@@ -1506,6 +1570,13 @@ NSString* getPartString(NSString *string,NSString *aString,NSString *bString)
     return string;
 }
 
+- (NSString *)stringUsingASCIIEncoding
+{
+    const char *cString = [self cStringUsingEncoding:NSUTF8StringEncoding];
+    NSString *desc = [NSString stringWithCString:cString encoding:NSNonLossyASCIIStringEncoding];
+    return desc;
+}
+
 - (NSArray *)componentSeparatedByString:(NSString *)key
 {
     NSString *string = self;
@@ -1869,8 +1940,7 @@ NSString* getPartString(NSString *string,NSString *aString,NSString *bString)
 - (NSString *)stringUsingASCIIEncoding
 {
     NSString *desc = self.description;
-    const char *cString = [desc cStringUsingEncoding:NSUTF8StringEncoding];
-    desc = [NSString stringWithCString:cString encoding:NSNonLossyASCIIStringEncoding];
+    desc = [desc stringUsingASCIIEncoding];
     return desc;
 }
 
@@ -1887,9 +1957,10 @@ NSString* getPartString(NSString *string,NSString *aString,NSString *bString)
 
 - (NSString *)dateWithFormat:(NSString *)format
 {
-    NSDateFormatter *data_time = [[NSDateFormatter alloc] init];
-    [data_time setDateFormat:format];//@"yyyy-MM-dd HH:mm:ss"
-    return [data_time stringFromDate:self];
+    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+    [dateFormat setDateFormat:format];//@"yyyy-MM-dd HH:mm:ss"
+    //dateFormat.timeZone = [NSTimeZone timeZoneWithName:@"GMT"];
+    return [dateFormat stringFromDate:self];
 }
 
 @end

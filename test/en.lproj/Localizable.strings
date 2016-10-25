@@ -1,0 +1,14 @@
+/* 
+  Localizable.strings
+  iFace
+
+  Created by APPLE on 14-11-10.
+  Copyright (c) 2014年 caidan. All rights reserved.
+*/
+
+welcome = "欢迎";
+menu_login_init = "登录后可体验更多功能";
+SendOperationTimedOut = "Send operation timed out";
+ReceiveOperationTimedOut = "Receive operation timed out";
+
+"Yesterday you sold %@ apps" = "Yesterday you sold B apps"; 

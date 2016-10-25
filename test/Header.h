@@ -15,8 +15,10 @@
 #include <arpa/inet.h>
 #include <netdb.h>
 #include <math.h>
+#include <string.h>
 #include <netinet/in.h>
 #include <sys/sysctl.h>
+#include <mach-o/dyld.h>
 
 #import "DeviceModel.h"
 #import "Tools.h"

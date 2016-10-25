@@ -249,20 +249,8 @@ int main(int argc, const char * argv[])
         
         [task waitUntilExit];
         
-        NSString *path = @"/Users/xy/Documents/Caches/中文表1.txt";
-        NSString *content = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
-        NSArray *list = [content componentSeparatedByString:@"\n"];
-        content = @"";
-        for (int i=0; i<list.count; i++) {
-            NSString *str = list[i];
-            if (str.length <= 0) {
-                continue;
-            }
-            
-            content = [content stringByAppendingFormat:@"%@\n",str];
-        }
-        [content writeToFile:path atomically:YES encoding:NSUTF8StringEncoding error:nil];
-        NSLog(@"%@",content);
+        NSTimeZone *tzGMT = [NSTimeZone timeZoneWithName:@"GMT"];
+        [NSTimeZone setDefaultTimeZone:tzGMT];
     }
     
     return 0;
