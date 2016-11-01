@@ -249,18 +249,9 @@ int main(int argc, const char * argv[])
         
         [task waitUntilExit];
         
-        NSString *path = @"/Users/xy/Documents/string.txt";
-        NSString *content = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+        int value = 0b11;
         
-        content = [content replaceString:@"\r" withString:@"/"];
-        
-//        for (int i=0; i<content.length; i++) {
-//            NSString *s = [content substringWithRange:NSMakeRange(i, 1)];
-//            const char *a = s.UTF8String;
-//            NSLog(@"%d,%s",i,a);
-//        }
-        
-        NSLog(@"content = %@",content);
+        NSLog(@"value = %d",value);
     }
     
     return 0;
