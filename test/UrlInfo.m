@@ -44,26 +44,7 @@
 - (instancetype)initWithUrlString:(NSString *)urlString
 {
     NSURL *url = [NSURL URLWithString:urlString];
-    if ((self = [super init])) {
-        _absoluteString = url.absoluteString;
-        _relativeString = url.relativeString;
-        _baseURL = url.baseURL;
-        _absoluteURL = url.absoluteURL;
-        _scheme = url.scheme;
-        _resourceSpecifier = url.resourceSpecifier;
-        
-        _host = url.host;
-        _port = url.port;
-        _user = url.user;
-        _password = url.password;
-        _path = url.path;
-        _fragment = url.fragment;
-        _parameterString = url.parameterString;
-        _query = url.query;
-        _relativePath = url.relativePath;
-    }
-    
-    return self;
+    return [self initWithUrl:url];
 }
 
 - (NSArray *)arrayWithQuery
