@@ -1413,6 +1413,30 @@ NSString* getPartString(NSString *string,NSString *aString,NSString *bString)
     return [NSArray arrayWithArray:list];
 }
 
++ (BOOL)writeDataToPath:(NSString *)path content:(NSString *)content
+{
+    NSFileHandle *outFile = [NSFileHandle fileHandleForWritingAtPath:path];
+    if(outFile == nil)
+    {
+        NSLog(@"Open of file for writing failed");
+        return NO;
+    }
+    //找到并定位到outFile的末尾位置(在此后追加文件)
+    [outFile seekToEndOfFile];
+    
+    //写入数据
+    NSData *data = [content dataUsingEncoding:NSUTF8StringEncoding];
+    [outFile writeData:data];
+    
+    data = [@"\n" dataUsingEncoding:NSUTF8StringEncoding];
+    [outFile writeData:data];
+    
+    //关闭读写文件
+    [outFile closeFile];
+    
+    return YES;
+}
+
 @end
 
 #pragma mark - ---------NSString---------------------
@@ -1487,6 +1511,15 @@ NSString* getPartString(NSString *string,NSString *aString,NSString *bString)
 - (NSString *)replaceString:(NSString *)target withString:(NSString *)replacement
 {
     NSString *result = [self stringByReplacingOccurrencesOfString:target withString:replacement];
+    return result;
+}
+
+- (NSString *)replaceStrings:(NSArray *)targets withString:(NSString *)replacement
+{
+    NSString *result = self;
+    for (NSString *target in targets) {
+        result = [result stringByReplacingOccurrencesOfString:target withString:replacement];
+    }
     return result;
 }
 
@@ -1785,6 +1818,22 @@ NSString* getPartString(NSString *string,NSString *aString,NSString *bString)
     return filter;
 }
 
+- (BOOL)containsDictionary
+{
+    BOOL isExist = NO;
+    for (id obj in self) {
+        if ([obj isKindOfClass:[NSDictionary class]]) {
+            isExist = YES;
+            break;
+        }
+        else if ([obj isKindOfClass:[NSArray class]]) {
+            isExist = [self containsDictionary];
+        }
+    }
+    
+    return isExist;
+}
+
 @end
 
 #pragma mark - --------NSData----------------------
@@ -2018,6 +2067,12 @@ NSString* getPartString(NSString *string,NSString *aString,NSString *bString)
         [obj setValue:value forKey:key];
     }
     
+    return obj;
+}
+
+- (id)weakObject
+{
+    __weak id obj = self;
     return obj;
 }
 

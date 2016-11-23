@@ -30,6 +30,9 @@ typedef NS_OPTIONS(NSUInteger, TQRichTextRunTypeList)
 #include <sys/types.h>
 #include <stdio.h>
 #include <stdlib.h>
+#import "Weather.h"
+#import "Temp.h"
+#import "NSXMLParser+Cobbler.h"
 
 #define var(v) [NSString stringWithFormat:@"%s",#v]
 #define Screen_Width 320.0f
@@ -128,42 +131,6 @@ NSArray *readChineseFromPath(NSString *path, NSMutableArray *listValue)
     return listValue;
 }
 
-void deleteImage()
-{
-    @autoreleasepool {
-        NSDictionary *dic = [Tools readCustomPath];
-        NSString *path = [dic objectForKey:@"iFace"];
-        path = [path stringByAppendingPathComponent:@"images"];
-        NSFileManager *manager = [NSFileManager defaultManager];
-        NSError *error = nil;
-        if ([manager fileExistsAtPath:path]) {
-            if (![manager removeItemAtPath:path error:&error]) {
-                if (error) {
-                    NSLog(@"删除文件, %@",error.localizedDescription);
-                }else{
-                    NSLog(@"删除文件失败");
-                }
-            }else{
-                NSLog(@"删除成功");
-            }
-        }else{
-            NSLog(@"文件不存在");
-        }
-    }
-}
-
-NSString *getPath()
-{
-    return @"/Users/Yin-Mac/Documents/Caches";
-}
-
-NSString *getHex(NSInteger value)
-{
-    NSString *result = [NSString stringWithFormat:@"%02lx",(long)value];
-    result = [result uppercaseString];
-    return result;
-}
-
 void BatchRename()
 {
     NSError *error = nil;
@@ -233,25 +200,30 @@ int main(int argc, const char * argv[])
 //        
 //        NSLog(@"%@",str);
         
-        NSTask *task = [[NSTask alloc] init];
-        task.launchPath = @"/sbin/reboot";
-        task.arguments = @[@"sudo"];
         
-        NSPipe *pipe = [NSPipe pipe];
-        [task setStandardOutput:pipe];
         
-        [task launch];
+//        NSString *prefixString = @"WaitLogin";
+//        NSString *suffixString = @"正在登录中,请稍候...";//x
+//        NSString *engString = @"Being logged in,please wait……";//
+//        
+//        NSString *content1 = [NSString format:@"\"%@\" = \"%@\";",prefixString,suffixString];
+//        NSString *content2 = [NSString format:@"\"%@\" = \"%@\";\n\n",prefixString,engString];
+//        NSString *content3 = [NSString format:@"LocalizedSingle(@\"%@\")\n\n",prefixString];
+//        
+//        printf("\n%s\n",content1.UTF8String);
+//        printf("%s",content2.UTF8String);
+//        printf("%s",content3.UTF8String);
+//        
+//        content1 = [NSString format:@"\"%@\" = \"%@\";",prefixString,suffixString];
+//        content2 = [NSString format:@"\"%@\" = \"%@\";\n",prefixString,engString];
+//        
+//        NSString *path = @"/Users/xy/Documents/CrashInfo/中文翻译.txt";
+//        [Tools writeDataToPath:path content:content1];
+//        [Tools writeDataToPath:path content:content2];
         
-        NSData *data = [[pipe fileHandleForReading] readDataToEndOfFile];
-        NSString *string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-        
-        NSLog(@"|:%@",string);
-        
-        [task waitUntilExit];
-        
-        int value = 0b11;
-        
-        NSLog(@"value = %d",value);
+        NSString *path = @"";
+        NSArray *listValue = readChineseFromPath(path, nil);
+        NSLog(@"%@",[listValue.description stringUsingASCIIEncoding]);
     }
     
     return 0;

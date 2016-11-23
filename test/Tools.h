@@ -13,7 +13,7 @@
 
 typedef NSString * (^WriteBlock)();
 typedef CF_ENUM(NSStringEncoding, CFStringBuilt) {
-    GBEncoding = 0x80000632 /* kTextEncodingUnicodeDefault + kUnicodeUTF32LEFormat */
+    GBEncoding = kCFStringEncodingGB_18030_2000 /* kTextEncodingUnicodeDefault + kUnicodeUTF32LEFormat */
 };
 
 @interface Tools : NSObject
@@ -165,6 +165,8 @@ NSString* getPartString(NSString *string,NSString *aString,NSString *bString);
 
 + (NSArray *)compareFileFromPath:(NSString *)path1 toPath:(NSString *)path2;
 
++ (BOOL)writeDataToPath:(NSString *)path content:(NSString *)content;
+
 @end
 
 
@@ -178,6 +180,7 @@ NSString* getPartString(NSString *string,NSString *aString,NSString *bString);
 + (NSString *)jsonStringWithObject:(id) object;
 - (NSString *) phonetic;
 - (NSString *)replaceString:(NSString *)target withString:(NSString *)replacement;
+- (NSString *)replaceStrings:(NSArray *)targets withString:(NSString *)replacement;
 + (NSString *)format:(NSString *)format, ... NS_FORMAT_FUNCTION(1,2);
 - (NSString *)AppendFormat:(NSString *)format, ... NS_FORMAT_FUNCTION(1,2);
 - (NSData *)dataByHexString;//十六进制字符转data
@@ -220,6 +223,8 @@ NSString* getPartString(NSString *string,NSString *aString,NSString *bString);
 - (NSArray *)replaceObject:(NSUInteger)index with:(id)anObject;
 //获取数组中不包含array的部分
 - (NSArray *)compareFrom:(NSArray *)array;
+
+- (BOOL)containsDictionary;
 
 @end
 
@@ -273,6 +278,7 @@ NSString* getPartString(NSString *string,NSString *aString,NSString *bString);
 - (NSArray *)getObjectIvarList;
 
 - (id)copyObject;
+- (id)weakObject;
 
 @end
 

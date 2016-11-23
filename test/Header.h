@@ -20,6 +20,7 @@
 #include <sys/sysctl.h>
 #include <mach-o/dyld.h>
 
+#import "GDataXMLNode.h"
 #import "DeviceModel.h"
 #import "Tools.h"
 #import "Rooms.h"
@@ -32,3 +33,4 @@
 #import "Ping.h"
 #import "Brands.h"
 #import "UrlInfo.h"
+#import "Request.h"

@@ -40,6 +40,28 @@
     return self;
 }
 
+- (nullable instancetype)initWithCoder:(NSCoder *)aDecoder
+{
+    self = [super init];
+    if (self) {
+        //self.ID = 23;
+        self.ID = [[aDecoder decodeObjectForKey:@"ID"] intValue];
+        self.age = [[aDecoder decodeObjectForKey:@"age"] intValue];
+        self.name = [aDecoder decodeObjectForKey:@"name"];
+        self.date = [aDecoder decodeObjectForKey:@"date"];
+    }
+    
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder
+{
+    [aCoder encodeObject:@(_ID) forKey:@"ID"];
+    [aCoder encodeObject:@(_age) forKey:@"age"];
+    [aCoder encodeObject:_name forKey:@"name"];
+    [aCoder encodeObject:_date forKey:@"date"];
+}
+
 - (NSString *)description
 {
     [super description];
@@ -53,7 +75,6 @@
     if (self) {
         self.ID = theID;
         self.name = theName;
-        self.ID = 3;
     }
     
     return self;
@@ -254,7 +275,8 @@ NSStringEncoding getEncode()
     request.URL = [NSURL URLWithString:urlString];
     //请求方式
     //request.HTTPMethod = @"POST";
-    NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:&error];
+    NSURLResponse *respone = nil;
+    NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&respone error:&error];
     if (error) {
         NSLog(@"%@",error.localizedDescription);
     }
@@ -272,13 +294,10 @@ NSStringEncoding getEncode()
         return nil;
     }
     
-    NSStringEncoding GBK = NSUTF8StringEncoding;
-    NSString *result = [[NSString alloc] initWithData:data encoding:GBK];
-    
-    if (result == nil) {
-        GBK = getEncode();
-        result = [[NSString alloc] initWithData:data encoding:GBK];
-    }
+    CFStringRef theString = (__bridge CFStringRef)respone.textEncodingName;
+    CFStringEncoding enc = CFStringConvertIANACharSetNameToEncoding(theString);
+    NSStringEncoding encoding = CFStringConvertEncodingToNSStringEncoding (enc);
+    NSString *result = [[NSString alloc] initWithData:data encoding: encoding];
     
     NSArray *list = [result componentsSeparatedByString:@"<code>"];
     if (list.count>1) {
@@ -323,7 +342,10 @@ NSStringEncoding getEncode()
          NSString *resault = nil;
          if ([data length]>0 && error==nil) {
              
-             resault = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+             CFStringRef theString = (__bridge CFStringRef)respone.textEncodingName;
+             CFStringEncoding enc = CFStringConvertIANACharSetNameToEncoding(theString);
+             NSStringEncoding encoding = CFStringConvertEncodingToNSStringEncoding (enc);
+             resault = [[NSString alloc] initWithData:data encoding: encoding];
              
              
              if ([resault hasPrefix:@"\""] && [resault hasSuffix:@"\""]) {
@@ -488,7 +510,10 @@ NSStringEncoding getEncode()
         
         NSURLResponse* response;
         NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
-        NSString *stringL = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        CFStringRef theString = (__bridge CFStringRef)response.textEncodingName;
+        CFStringEncoding enc = CFStringConvertIANACharSetNameToEncoding(theString);
+        NSStringEncoding encoding = CFStringConvertEncodingToNSStringEncoding (enc);
+        NSString *stringL = [[NSString alloc] initWithData:data encoding: encoding];
         
         if ([stringL hasPrefix:@"\""] && [stringL hasSuffix:@"\""]) {
             stringL = [stringL substringWithRange:NSMakeRange(1, stringL.length-2)];
@@ -509,7 +534,10 @@ NSStringEncoding getEncode()
         [NSURLConnection sendAsynchronousRequest:request queue:[[NSOperationQueue alloc] init] completionHandler:^(NSURLResponse* response,NSData* data,NSError* error)
          {
              if ([data length]>0 && error == nil) {
-                 NSString *stringL = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+                 CFStringRef theString = (__bridge CFStringRef)response.textEncodingName;
+                 CFStringEncoding enc = CFStringConvertIANACharSetNameToEncoding(theString);
+                 NSStringEncoding encoding = CFStringConvertEncodingToNSStringEncoding (enc);
+                 NSString *stringL = [[NSString alloc] initWithData:data encoding: encoding];
                  
                  if ([stringL hasPrefix:@"\""] && [stringL hasSuffix:@"\""]) {
                      stringL = [stringL substringWithRange:NSMakeRange(1, stringL.length-2)];

@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		1423F6E21CCB14B1005310DE /* UrlInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1423F6E11CCB14B1005310DE /* UrlInfo.m */; };
+		1452F3741DD5C2E8009628AF /* NSXMLParser+Cobbler.m in Sources */ = {isa = PBXBuildFile; fileRef = 1452F3731DD5C2E8009628AF /* NSXMLParser+Cobbler.m */; };
+		1470D9141DCADEE70039A452 /* Weather.m in Sources */ = {isa = PBXBuildFile; fileRef = 1470D9131DCADEE70039A452 /* Weather.m */; };
+		1470D9171DCAE1830039A452 /* Temp.m in Sources */ = {isa = PBXBuildFile; fileRef = 1470D9161DCAE1830039A452 /* Temp.m */; };
+		14FC17911DD317AC007BFB4E /* Request.m in Sources */ = {isa = PBXBuildFile; fileRef = 14FC17901DD317AC007BFB4E /* Request.m */; };
 		8E4BC55E18BF30D90089158C /* Encoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E4BC55D18BF30D90089158C /* Encoder.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		8E5B30A4187DBE22007A9F86 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E5B30A3187DBE22007A9F86 /* AddressBook.framework */; };
 		8E7F7C8518CFEE7700595CFE /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E7F7C8218CFEE7700595CFE /* NSData+Base64.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -57,8 +61,16 @@
 		1423F6DF1CCB1435005310DE /* Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Header.h; sourceTree = "<group>"; };
 		1423F6E01CCB14B1005310DE /* UrlInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UrlInfo.h; sourceTree = "<group>"; };
 		1423F6E11CCB14B1005310DE /* UrlInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UrlInfo.m; sourceTree = "<group>"; };
+		1452F3721DD5C2E8009628AF /* NSXMLParser+Cobbler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSXMLParser+Cobbler.h"; sourceTree = "<group>"; };
+		1452F3731DD5C2E8009628AF /* NSXMLParser+Cobbler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSXMLParser+Cobbler.m"; sourceTree = "<group>"; };
+		1470D9121DCADEE70039A452 /* Weather.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Weather.h; sourceTree = "<group>"; };
+		1470D9131DCADEE70039A452 /* Weather.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Weather.m; sourceTree = "<group>"; };
+		1470D9151DCAE1830039A452 /* Temp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Temp.h; sourceTree = "<group>"; };
+		1470D9161DCAE1830039A452 /* Temp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Temp.m; sourceTree = "<group>"; };
 		14A0E5E11DA8852000CC08B5 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		14A0E5E31DA8852800CC08B5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		14FC178F1DD317AC007BFB4E /* Request.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Request.h; sourceTree = "<group>"; };
+		14FC17901DD317AC007BFB4E /* Request.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Request.m; sourceTree = "<group>"; };
 		8E4BC55818BF17140089158C /* a.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = a.txt; sourceTree = "<group>"; };
 		8E4BC55C18BF30D90089158C /* Encoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Encoder.h; sourceTree = "<group>"; };
 		8E4BC55D18BF30D90089158C /* Encoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Encoder.m; sourceTree = "<group>"; };
@@ -110,7 +122,6 @@
 		E2C7A02D1B44E5130011EC75 /* Brands.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Brands.m; sourceTree = "<group>"; };
 		E2C7A02F1B44E5370011EC75 /* EnumTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnumTypes.h; sourceTree = "<group>"; };
 		E2C7A0301B44E56C0011EC75 /* EnumInfraredType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnumInfraredType.h; sourceTree = "<group>"; };
-		E2E75D451C7FF9DD009C1581 /* 5.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = 5.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -188,8 +199,14 @@
 				1423F6E11CCB14B1005310DE /* UrlInfo.m */,
 				E2C7A02C1B44E5130011EC75 /* Brands.h */,
 				E2C7A02D1B44E5130011EC75 /* Brands.m */,
-				1423F6DF1CCB1435005310DE /* Header.h */,
-				E2E75D451C7FF9DD009C1581 /* 5.txt */,
+				14FC178F1DD317AC007BFB4E /* Request.h */,
+				14FC17901DD317AC007BFB4E /* Request.m */,
+				1470D9121DCADEE70039A452 /* Weather.h */,
+				1470D9131DCADEE70039A452 /* Weather.m */,
+				1470D9151DCAE1830039A452 /* Temp.h */,
+				1470D9161DCAE1830039A452 /* Temp.m */,
+				1452F3721DD5C2E8009628AF /* NSXMLParser+Cobbler.h */,
+				1452F3731DD5C2E8009628AF /* NSXMLParser+Cobbler.m */,
 				E22655BA1904F6360058DEA6 /* Tools */,
 				8E9DC31A187AEF6200CB5109 /* Supporting Files */,
 			);
@@ -202,6 +219,7 @@
 				8E9DC31C187AEF6200CB5109 /* test.1 */,
 				8E4BC55818BF17140089158C /* a.txt */,
 				140697D71D93DE21001F244C /* demo.sh */,
+				1423F6DF1CCB1435005310DE /* Header.h */,
 				8E9DC31B187AEF6200CB5109 /* test-Prefix.pch */,
 				14092B5B1D8F940300E1E8E2 /* InfoPlist.strings */,
 				14A0E5E21DA8852000CC08B5 /* Localizable.strings */,
@@ -291,11 +309,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				E2AF3AC11B12B9DD00EA0333 /* Ping.m in Sources */,
+				14FC17911DD317AC007BFB4E /* Request.m in Sources */,
 				8E4BC55E18BF30D90089158C /* Encoder.m in Sources */,
+				1470D9141DCADEE70039A452 /* Weather.m in Sources */,
 				8E9DC319187AEF6200CB5109 /* main.m in Sources */,
 				E238D53318F3EBE600A125F2 /* Tools.m in Sources */,
 				E26F7AD61ABFB8FA001B4E3C /* DeviceModel.m in Sources */,
 				E241EEE118E12A49009259AB /* Polymorphism.m in Sources */,
+				1452F3741DD5C2E8009628AF /* NSXMLParser+Cobbler.m in Sources */,
+				1470D9171DCAE1830039A452 /* Temp.m in Sources */,
 				E27ACE211AFDDBDB00E8621D /* HTTPRequest.m in Sources */,
 				8E7F7C8518CFEE7700595CFE /* NSData+Base64.m in Sources */,
 				E260927219C84B62002F25A2 /* GDataXMLNode.m in Sources */,
