@@ -224,7 +224,17 @@ int main(int argc, const char * argv[])
         NSString *path = @"";
         NSArray *listValue = readChineseFromPath(path, nil);
         NSLog(@"%@",[listValue.description stringUsingASCIIEncoding]);
-    }
+        
+        //中英文键值表
+//        NSError *error = nil;
+//        NSString *path = @"/Users/xy/Documents/Caches/Localizable.strings";
+//        NSString *content = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:&error];
+//        if (error) {
+//            NSLog(@"%@",error.localizedDescription);
+//        }else{
+//            NSLog(@"%@",content);
+        }
+    
     
     return 0;
 }

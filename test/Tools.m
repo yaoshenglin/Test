@@ -1722,20 +1722,28 @@ NSString* getPartString(NSString *string,NSString *aString,NSString *bString)
 {
     NSMutableArray *array = [NSMutableArray array];
     NSError *error = nil;
+    //格式
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:regulaStr
                                                                            options:NSRegularExpressionCaseInsensitive
                                                                              error:&error];
     
     if (error == nil)
     {
+        //解析
         NSMatchingOptions options = NSMatchingReportProgress;
-        NSTextCheckingResult *result = [regex firstMatchInString:self options:options range:NSMakeRange(0, [self length])];
-        if (result) {
-            for (int i=0; i<result.numberOfRanges; i++) {
+        NSArray *listResult = [regex matchesInString:self options:options range:NSMakeRange(0, [self length])];
+        for (NSTextCheckingResult *result in listResult) {
+            NSMutableDictionary *dicValue = [NSMutableDictionary dictionary];
+            NSUInteger numberOfRanges = result.numberOfRanges;
+            NSLog(@"%@",[self substringWithRange:result.range]);
+            for (int i=0; i<numberOfRanges; i++) {
                 NSRange range = [result rangeAtIndex:i];
                 NSString *value = [self substringWithRange:range];
-                [array addObject:value];
+                NSString *key = [NSString format:@"%d",i];
+                [dicValue setObject:value forKey:key];
             }
+            
+            [array addObject:dicValue];
         }
     }
     
