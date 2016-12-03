@@ -1650,6 +1650,22 @@ NSString* getPartString(NSString *string,NSString *aString,NSString *bString)
     return self;
 }
 
+//移除key及其前面部分
+- (NSString *)deletePrefix:(NSString *)key
+{
+    NSArray *list = [self componentSeparatedByString:key];
+    NSString *value = list.lastObject;
+    return value;
+}
+
+//移除key及其后面部分
+- (NSString *)deleteSuffix:(NSString *)key
+{
+    NSArray *list = [self componentSeparatedByString:key];
+    NSString *value = list.firstObject;
+    return value;
+}
+
 - (NSDate *)dateWithFormat:(NSString *)format
 {
     if (!format) {

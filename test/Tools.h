@@ -200,6 +200,11 @@ NSString* getPartString(NSString *string,NSString *aString,NSString *bString);
 //移除后缀
 - (NSString *)removeSuffix:(NSString *)aString;
 
+//移除key及其前面部分
+- (NSString *)deletePrefix:(NSString *)key;
+//移除key及其后面部分
+- (NSString *)deleteSuffix:(NSString *)key;
+
 - (NSDate *)dateWithFormat:(NSString *)format;
 
 //获取第一个字符

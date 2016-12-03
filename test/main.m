@@ -62,13 +62,6 @@ NSString *printHead(NSString *filePath)
     return nil;
 }
 
-NSString *deleteString(NSString *aString, NSString *bString)
-{
-    NSArray *list = [aString componentSeparatedByString:bString];
-    NSString *value = list.firstObject;
-    return value;
-}
-
 NSArray *readChineseFromPath(NSString *path, NSMutableArray *listValue)
 {
     BOOL isDir = NO;
@@ -91,36 +84,68 @@ NSArray *readChineseFromPath(NSString *path, NSMutableArray *listValue)
                 return nil;
             }
             NSString *content = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
-            content = [content replaceString:@"NSLog(@\"" withString:@"😀"];
-            content = [content replaceString:@"CTBNSLog(@\"" withString:@"😀"];
-            content = [content replaceString:@"%@\"," withString:@",\""];
-            content = [content replaceString:@"[UIImage imageNamed::@\"" withString:@"😀"];
-            content = [content replaceString:@"imageNamed:@\"" withString:@"😀"];
-            content = [content replaceString:@"imageFromLibrary:@\"" withString:@"😀"];
-            content = [content replaceString:@" img:@\"" withString:@"😀"];
-            content = [content replaceString:@" selectedImg:@\"" withString:@"😀"];
-            content = [content replaceString:@" SwitchWithImg:@\"" withString:@"😀"];
-            content = [content replaceString:@" CreateButtonWithImg:@\"" withString:@"😀"];
-            content = [content replaceString:@" pathForResource:@\"" withString:@" pathForResource:@\"✅"];
-            NSArray *list = [content componentSeparatedByString:@"@\""];
+            
+            //去掉不需要的部分(比如Log，图片名字，资源文件名字……)
+//            content = [content replaceString:@"NSLog(@\"" withString:@"😀"];
+//            content = [content replaceString:@"CTBNSLog(@\"" withString:@"😀"];
+//            content = [content replaceString:@"%@\"," withString:@",\""];
+//            content = [content replaceString:@"[UIImage imageNamed::@\"" withString:@"😀"];
+//            content = [content replaceString:@"imageNamed:@\"" withString:@"😀"];
+//            content = [content replaceString:@"imageFromLibrary:@\"" withString:@"😀"];
+//            content = [content replaceString:@" img:@\"" withString:@"😀"];
+//            content = [content replaceString:@" selectedImg:@\"" withString:@"😀"];
+//            content = [content replaceString:@" SwitchWithImg:@\"" withString:@"😀"];
+//            content = [content replaceString:@" CreateButtonWithImg:@\"" withString:@"😀"];
+//            content = [content replaceString:@" pathForResource:@\"" withString:@" pathForResource:@\"✅"];
+//            NSArray *list = [content componentSeparatedByString:@"@\""];
+//            for (int i=0; i<list.count; i++) {
+//                NSString *str = list[i];
+//                if (i == 0) {
+//                    continue;
+//                }
+//                
+//                NSArray *listO = [str componentSeparatedByString:@"\""];
+//                NSString *value = listO.firstObject;
+//                
+//                //去掉一些没用的(以字符串分割，只要第一部分)
+//                value = deleteString(value, @"#pragma mark");
+//                value = deleteString(value, @" if (");
+//                value = deleteString(value, @" return ");
+//                value = deleteString(value, @"//");
+//                value = deleteString(value, @"😀");
+//                
+//                if ([Tools containsChinese:value] && ![listValue containsObject:value]) {
+//                    [listValue addObject:value];
+//                    //content = [content stringByAppendingFormat:@"%@\n",value];
+//                }
+//            }
+            
+            //
+            content = [content replaceString:@"NSLocalizedString(" withString:@"😀"];
+            content = [content replaceString:@"LocalizedSingle(" withString:@"😀"];
+            content = [content replaceString:@"NSLocalizedStr(" withString:@"😀"];
+            content = [content replaceString:@"CTBLocalizedStr(" withString:@"😀"];
+            content = [content replaceString:@"CTBLocalizedString(" withString:@"😀"];
+            content = [content replaceString:@"LocalizedSingles(@[" withString:@"😀"];
+            content = [content replaceString:@"])" withString:@"✅"];
+            content = [content replaceString:@")" withString:@"✅"];
+            NSArray *list = [content componentSeparatedByString:@"😀"];
             for (int i=0; i<list.count; i++) {
-                NSString *str = list[i];
                 if (i == 0) {
                     continue;
                 }
-                
-                NSArray *listO = [str componentSeparatedByString:@"\""];
-                NSString *value = listO.firstObject;
-                
-                value = deleteString(value, @"#pragma mark");
-                value = deleteString(value, @" if (");
-                value = deleteString(value, @" return ");
-                value = deleteString(value, @"//");
-                value = deleteString(value, @"😀");
-                
-                if ([Tools containsChinese:value] && ![listValue containsObject:value]) {
-                    [listValue addObject:value];
-                    //content = [content stringByAppendingFormat:@"%@\n",value];
+                NSString *str = list[i];
+                str = [str deleteSuffix:@"✅"];
+                NSArray *listO = [str componentSeparatedByString:@"@\""];
+                for (NSString *key in listO) {
+                    NSString *value = key;
+                    if (key.length > 0) {
+                        value = [key deleteSuffix:@"\""];
+                        if (![listValue containsObject:value]) {
+                            //NSLog(@"%@",value);
+                            [listValue addObject:value];
+                        }
+                    }
                 }
             }
         }
@@ -221,9 +246,46 @@ int main(int argc, const char * argv[])
 //        [Tools writeDataToPath:path content:content1];
 //        [Tools writeDataToPath:path content:content2];
         
-        NSString *path = @"";
-        NSArray *listValue = readChineseFromPath(path, nil);
-        NSLog(@"%@",[listValue.description stringUsingASCIIEncoding]);
+        NSString *path = @"/Volumes/Apple/SVN/IOS_iFace/iFace";
+//        NSArray *listValue = readChineseFromPath(path, nil);
+//        NSLog(@"%@",[listValue description]);
+        
+        path = @"/Volumes/Apple/SVN/IOS_iFace/iFace/en.lproj/Localizable.strings";
+        NSString *content = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+        
+        NSMutableArray *listValue = [NSMutableArray array];
+        NSArray *list = [content componentSeparatedByString:@";"];
+        for (int i=0; i<list.count; i++) {
+            NSString *keyValue = list[i];
+            if (keyValue.length > 0 && [keyValue containsString:@"\" = \""]) {
+                NSArray *listKey = [keyValue componentSeparatedByString:@"\" = \""];
+                NSString *key = listKey.lastObject;
+                key = [key deletePrefix:@"\""];
+                if (key.length > 0) {
+                    [listValue addObject:key];
+                }
+            }
+        }
+        
+        NSMutableArray *listResult = [NSMutableArray array];
+        for (NSString *key in listValue) {
+            if (![listResult containsObject:key]) {
+                [listResult addObject:key];
+            }else{
+                NSLog(@"key = \"%@\"",key);
+            }
+        }
+        
+//        NSArray *dataArray = @[@"2014-04-01",@"2014-04-02",@"2014-04-03",
+//                               @"2014-04-01",@"2014-04-02",@"2014-04-03",
+//                               @"2014-04-01",@"2014-04-03",@"2014-04-03",
+//                               @"2014-04-01",@"2014-04-02",@"2014-04-03",
+//                               @"2014-04-01",@"2014-04-02",@"2014-04-03",
+//                               @"2014-04-01",@"2014-04-02",@"2014-04-03",
+//                               @"2014-04-04",@"2014-04-06",@"2014-04-08",
+//                               @"2014-04-05",@"2014-04-07",@"2014-04-09",];
+//        NSSet *set = [NSSet setWithArray:dataArray];
+//        NSLog(@"%@",[set allObjects]);
         
         //中英文键值表
 //        NSError *error = nil;
@@ -233,7 +295,14 @@ int main(int argc, const char * argv[])
 //            NSLog(@"%@",error.localizedDescription);
 //        }else{
 //            NSLog(@"%@",content);
-        }
+//        }
+        
+//        NSString *str = @"3c21444f43545950";
+//        NSData *data = [str dataByHexString];
+//        NSString *value = [data stringUsingEncoding:NSASCIIStringEncoding];
+//        
+//        NSLog(@"value = %@",value);
+    }
     
     
     return 0;
