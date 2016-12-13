@@ -246,35 +246,6 @@ int main(int argc, const char * argv[])
 //        [Tools writeDataToPath:path content:content1];
 //        [Tools writeDataToPath:path content:content2];
         
-        NSString *path = @"/Volumes/Apple/SVN/IOS_iFace/iFace";
-//        NSArray *listValue = readChineseFromPath(path, nil);
-//        NSLog(@"%@",[listValue description]);
-        
-        path = @"/Volumes/Apple/SVN/IOS_iFace/iFace/en.lproj/Localizable.strings";
-        NSString *content = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
-        
-        NSMutableArray *listValue = [NSMutableArray array];
-        NSArray *list = [content componentSeparatedByString:@";"];
-        for (int i=0; i<list.count; i++) {
-            NSString *keyValue = list[i];
-            if (keyValue.length > 0 && [keyValue containsString:@"\" = \""]) {
-                NSArray *listKey = [keyValue componentSeparatedByString:@"\" = \""];
-                NSString *key = listKey.lastObject;
-                key = [key deletePrefix:@"\""];
-                if (key.length > 0) {
-                    [listValue addObject:key];
-                }
-            }
-        }
-        
-        NSMutableArray *listResult = [NSMutableArray array];
-        for (NSString *key in listValue) {
-            if (![listResult containsObject:key]) {
-                [listResult addObject:key];
-            }else{
-                NSLog(@"key = \"%@\"",key);
-            }
-        }
         
 //        NSArray *dataArray = @[@"2014-04-01",@"2014-04-02",@"2014-04-03",
 //                               @"2014-04-01",@"2014-04-02",@"2014-04-03",
@@ -302,6 +273,11 @@ int main(int argc, const char * argv[])
 //        NSString *value = [data stringUsingEncoding:NSASCIIStringEncoding];
 //        
 //        NSLog(@"value = %@",value);
+        
+        CGFloat a = 233;
+//        CGFloat b = 0;
+//        a = a / b;
+        NSLog(@"%f",++a);
     }
     
     
