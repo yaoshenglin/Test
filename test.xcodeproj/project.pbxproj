@@ -440,6 +440,7 @@
 					/usr/include/libxml2,
 				);
 				LIBRARY_SEARCH_PATHS = "";
+				OTHER_CFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;

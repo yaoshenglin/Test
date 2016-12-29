@@ -274,10 +274,42 @@ int main(int argc, const char * argv[])
 //        
 //        NSLog(@"value = %@",value);
         
-        CGFloat a = 233;
-//        CGFloat b = 0;
-//        a = a / b;
-        NSLog(@"%f",++a);
+        NSArray *list1 = @[@"/Users/xy/Desktop/临时文件/ODM/ODM_hdpi/icon_outside_flat.png",@"",@"",@""];
+        NSArray *list2 = @[@"/Volumes/Apple/SVN/iFace_ODM_Carea_IOS/carea/Images/LED/LEDlogo/设备@2x/iFace-平板@2x.png",@"",@"",@""];
+        for (int i=0; i<list1.count; i++) {
+            NSString *path1 = list1[i];
+            NSString *path2 = list2[i];
+            if (path1.length <= 0 || path2.length <= 0) {
+                continue;
+            }
+            NSData *data = [NSData dataWithContentsOfFile:path1];
+            [data writeToFile:path2 atomically:YES];
+        }
+        
+//        NSString *path1 = @"/Volumes/Apple/SVN/IOS_iFace/iFace/Images/个人中心";
+//        NSString *path2 = @"/Volumes/Apple/SVN/iFace_ODM_Carea_IOS/carea/Images/个人中心";
+//        NSError *error = nil;
+//        NSFileManager *fileManager = NSFileManager.defaultManager;
+//        NSArray *list1 = [fileManager contentsOfDirectoryAtPath:path1 error:&error];
+//        NSArray *list2 = [fileManager contentsOfDirectoryAtPath:path2 error:&error];
+//        
+//        NSInteger count = list1.count;
+//        NSLog(@"该文件夹有%ld个文件",(long)count);
+//        
+//        for (int i=0; i<list1.count; i++) {
+//            NSString *fileName = [list1 objectAtIndex:i];
+//            if ([fileName hasSuffix:@".png"] && ![list2 containsObject:fileName]) {
+//                NSLog(@"%@",fileName);
+//                NSString *filePath1 = [path1 stringByAppendingPathComponent:fileName];
+//                NSString *filePath2 = [path2 stringByAppendingPathComponent:fileName];
+//                NSData *data = [NSData dataWithContentsOfFile:filePath1];
+//                [data writeToFile:filePath2 atomically:YES];
+//            }
+//            else if (![fileName containsString:@"."] && ![list2 containsObject:fileName]) {
+//                NSLog(@"%@",fileName);
+//            }
+//        }
+        
     }
     
     
