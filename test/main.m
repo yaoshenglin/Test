@@ -274,17 +274,9 @@ int main(int argc, const char * argv[])
 //        
 //        NSLog(@"value = %@",value);
         
-        NSArray *list1 = @[@"/Users/xy/Desktop/临时文件/ODM/ODM_hdpi/icon_outside_flat.png",@"",@"",@""];
-        NSArray *list2 = @[@"/Volumes/Apple/SVN/iFace_ODM_Carea_IOS/carea/Images/LED/LEDlogo/设备@2x/iFace-平板@2x.png",@"",@"",@""];
-        for (int i=0; i<list1.count; i++) {
-            NSString *path1 = list1[i];
-            NSString *path2 = list2[i];
-            if (path1.length <= 0 || path2.length <= 0) {
-                continue;
-            }
-            NSData *data = [NSData dataWithContentsOfFile:path1];
-            [data writeToFile:path2 atomically:YES];
-        }
+        __unused NSString *model = @"model";
+        NSInteger length = model.length;
+        NSLog(@"value = %ld",length);
         
 //        NSString *path1 = @"/Volumes/Apple/SVN/IOS_iFace/iFace/Images/个人中心";
 //        NSString *path2 = @"/Volumes/Apple/SVN/iFace_ODM_Carea_IOS/carea/Images/个人中心";
