@@ -31,12 +31,9 @@
 		E238D53318F3EBE600A125F2 /* Tools.m in Sources */ = {isa = PBXBuildFile; fileRef = E238D53218F3EBE600A125F2 /* Tools.m */; };
 		E238D53518F3EC4D00A125F2 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E238D53418F3EC4D00A125F2 /* libsqlite3.dylib */; };
 		E241EEE118E12A49009259AB /* Polymorphism.m in Sources */ = {isa = PBXBuildFile; fileRef = E241EEE018E12A49009259AB /* Polymorphism.m */; };
-		E245FCD11969272500683FDC /* Rooms.m in Sources */ = {isa = PBXBuildFile; fileRef = E245FCD01969272500683FDC /* Rooms.m */; };
 		E24CA4D2199B080F00E54A9E /* PrintObject.m in Sources */ = {isa = PBXBuildFile; fileRef = E24CA4D1199B080F00E54A9E /* PrintObject.m */; };
-		E260927219C84B62002F25A2 /* GDataXMLNode.m in Sources */ = {isa = PBXBuildFile; fileRef = E260927119C84B62002F25A2 /* GDataXMLNode.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		E260927419C84B7D002F25A2 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E260927319C84B7D002F25A2 /* libxml2.dylib */; };
 		E26F7AD61ABFB8FA001B4E3C /* DeviceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E26F7AD51ABFB8FA001B4E3C /* DeviceModel.m */; };
-		E27ACE211AFDDBDB00E8621D /* HTTPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = E27ACE201AFDDBDB00E8621D /* HTTPRequest.m */; };
 		E2AF3AC11B12B9DD00EA0333 /* Ping.m in Sources */ = {isa = PBXBuildFile; fileRef = E2AF3AC01B12B9DD00EA0333 /* Ping.m */; };
 		E2C7A02E1B44E5130011EC75 /* Brands.m in Sources */ = {isa = PBXBuildFile; fileRef = E2C7A02D1B44E5130011EC75 /* Brands.m */; };
 /* End PBXBuildFile section */
@@ -102,19 +99,13 @@
 		E238D53418F3EC4D00A125F2 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		E241EEDF18E12A49009259AB /* Polymorphism.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Polymorphism.h; sourceTree = "<group>"; };
 		E241EEE018E12A49009259AB /* Polymorphism.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Polymorphism.m; sourceTree = "<group>"; };
-		E245FCCF1969272500683FDC /* Rooms.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Rooms.h; sourceTree = "<group>"; };
-		E245FCD01969272500683FDC /* Rooms.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Rooms.m; sourceTree = "<group>"; };
 		E24B64D519BEDBE3009F7545 /* TestHeads.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestHeads.h; sourceTree = "<group>"; };
 		E24BC05A196D391F004E0313 /* BPushConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = BPushConfig.plist; sourceTree = "<group>"; };
 		E24CA4D0199B080F00E54A9E /* PrintObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrintObject.h; sourceTree = "<group>"; };
 		E24CA4D1199B080F00E54A9E /* PrintObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrintObject.m; sourceTree = "<group>"; };
-		E260927019C84B62002F25A2 /* GDataXMLNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDataXMLNode.h; sourceTree = "<group>"; };
-		E260927119C84B62002F25A2 /* GDataXMLNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDataXMLNode.m; sourceTree = "<group>"; };
 		E260927319C84B7D002F25A2 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		E26F7AD41ABFB8FA001B4E3C /* DeviceModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceModel.h; sourceTree = "<group>"; };
 		E26F7AD51ABFB8FA001B4E3C /* DeviceModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceModel.m; sourceTree = "<group>"; };
-		E27ACE1F1AFDDBDB00E8621D /* HTTPRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPRequest.h; sourceTree = "<group>"; };
-		E27ACE201AFDDBDB00E8621D /* HTTPRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPRequest.m; sourceTree = "<group>"; };
 		E2AF3ABF1B12B9DD00EA0333 /* Ping.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ping.h; sourceTree = "<group>"; };
 		E2AF3AC01B12B9DD00EA0333 /* Ping.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Ping.m; sourceTree = "<group>"; };
 		E2AF3AC81B12FF7D00EA0333 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -186,8 +177,6 @@
 				8E9DC318187AEF6200CB5109 /* main.m */,
 				E238D53118F3EBE600A125F2 /* Tools.h */,
 				E238D53218F3EBE600A125F2 /* Tools.m */,
-				E245FCCF1969272500683FDC /* Rooms.h */,
-				E245FCD01969272500683FDC /* Rooms.m */,
 				E24CA4D0199B080F00E54A9E /* PrintObject.h */,
 				E24CA4D1199B080F00E54A9E /* PrintObject.m */,
 				E24B64D519BEDBE3009F7545 /* TestHeads.h */,
@@ -245,10 +234,6 @@
 				8E7F7C8218CFEE7700595CFE /* NSData+Base64.m */,
 				8E7F7C8318CFEE7700595CFE /* StringEncryption.h */,
 				8E7F7C8418CFEE7700595CFE /* StringEncryption.m */,
-				E27ACE1F1AFDDBDB00E8621D /* HTTPRequest.h */,
-				E27ACE201AFDDBDB00E8621D /* HTTPRequest.m */,
-				E260927019C84B62002F25A2 /* GDataXMLNode.h */,
-				E260927119C84B62002F25A2 /* GDataXMLNode.m */,
 				E2296A93190A0A0A00F78507 /* DeleteFile.h */,
 				E2296A94190A0A0A00F78507 /* DeleteFile.m */,
 				E24BC05A196D391F004E0313 /* BPushConfig.plist */,
@@ -318,11 +303,8 @@
 				E241EEE118E12A49009259AB /* Polymorphism.m in Sources */,
 				1452F3741DD5C2E8009628AF /* NSXMLParser+Cobbler.m in Sources */,
 				1470D9171DCAE1830039A452 /* Temp.m in Sources */,
-				E27ACE211AFDDBDB00E8621D /* HTTPRequest.m in Sources */,
 				8E7F7C8518CFEE7700595CFE /* NSData+Base64.m in Sources */,
-				E260927219C84B62002F25A2 /* GDataXMLNode.m in Sources */,
 				E238D53018F3EBCC00A125F2 /* DB.m in Sources */,
-				E245FCD11969272500683FDC /* Rooms.m in Sources */,
 				E2296A95190A0A0A00F78507 /* DeleteFile.m in Sources */,
 				8E7F7C8618CFEE7700595CFE /* StringEncryption.m in Sources */,
 				E2C7A02E1B44E5130011EC75 /* Brands.m in Sources */,

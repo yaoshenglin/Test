@@ -20,16 +20,16 @@
 #include <sys/sysctl.h>
 #include <mach-o/dyld.h>
 
-#import "GDataXMLNode.h"
+//#import "GDataXMLNode.h"
 #import "DeviceModel.h"
 #import "Tools.h"
-#import "Rooms.h"
+//#import "Rooms.h"
 #import "Encoder.h"
 #import "PrintObject.h"
 #import "DeleteFile.h"
 #import "EnumType.h"
 #import "DB.h"
-#import "HTTPRequest.h"
+//#import "HTTPRequest.h"
 #import "Ping.h"
 #import "Brands.h"
 #import "UrlInfo.h"
