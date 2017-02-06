@@ -593,15 +593,15 @@ static sqlite3 *db;
     }
     
     //******************************************
-    NSString *getTableInfo = [NSString stringWithFormat:@"select count(*) from sqlite_master where type='table' and name='%@';",TableName] ;
-    char *errMsg = nil;
-    if (sqlite3_exec(db,[getTableInfo UTF8String],NULL,NULL,&errMsg) == SQLITE_OK)
-    {
-        NSLog(@"err : %s",errMsg);
-        return NO;
-    }
-    
-    return YES;
+//    NSString *getTableInfo = [NSString stringWithFormat:@"select count(*) from sqlite_master where type='table' and name='%@';",TableName] ;
+//    char *errMsg = nil;
+//    if (sqlite3_exec(db,[getTableInfo UTF8String],NULL,NULL,&errMsg) == SQLITE_OK)
+//    {
+//        NSLog(@"err : %s",errMsg);
+//        return NO;
+//    }
+//    
+//    return YES;
 }
 
 + (NSArray *)GetAllTable
