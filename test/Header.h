@@ -19,6 +19,7 @@
 #include <netinet/in.h>
 #include <sys/sysctl.h>
 #include <mach-o/dyld.h>
+#include <pthread.h>
 
 //#import "GDataXMLNode.h"
 #import "DeviceModel.h"

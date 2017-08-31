@@ -178,11 +178,13 @@ NSString* getPartString(NSString *string,NSString *aString,NSString *bString);
 + (NSString *)jsonStringWithArray:(NSArray *)array;
 + (NSString *)jsonStringWithDictionary:(NSDictionary *)dictionary;
 + (NSString *)jsonStringWithObject:(id) object;
++ (NSArray *)encodeList;
 - (NSString *) phonetic;
 - (NSString *)replaceString:(NSString *)target withString:(NSString *)replacement;
 - (NSString *)replaceStrings:(NSArray *)targets withString:(NSString *)replacement;
 + (NSString *)format:(NSString *)format, ... NS_FORMAT_FUNCTION(1,2);
 - (NSString *)AppendFormat:(NSString *)format, ... NS_FORMAT_FUNCTION(1,2);
++ (NSString *)formatWithFloat:(CGFloat)num length:(int)l;
 - (NSData *)dataByHexString;//十六进制字符转data
 
 - (NSString *)AppendString:(NSString *)aString;
@@ -192,6 +194,7 @@ NSString* getPartString(NSString *string,NSString *aString,NSString *bString);
 + (NSString *)stringWith:(NSString *)string;
 
 - (NSString *)stringUsingASCIIEncoding;
+- (NSString *)encryptUsingMD5;
 - (NSArray *)componentSeparatedByString:(NSString *)key;
 
 //移除前缀
@@ -206,6 +209,8 @@ NSString* getPartString(NSString *string,NSString *aString,NSString *bString);
 - (NSString *)deleteSuffix:(NSString *)key;
 
 - (NSDate *)dateWithFormat:(NSString *)format;
+
+- (NSString *)stringForFormat;
 
 //获取第一个字符
 - (NSString *)firstString;
@@ -264,6 +269,7 @@ NSString* getPartString(NSString *string,NSString *aString,NSString *bString);
 - (NSDictionary *)dictionaryWithDictionary:(NSDictionary *)dict;
 - (NSString *)convertToString;
 - (NSString *)stringUsingASCIIEncoding;
+- (NSString *)stringForFormat;
 
 @end
 
@@ -281,6 +287,10 @@ NSString* getPartString(NSString *string,NSString *aString,NSString *bString);
 
 - (NSArray *)getObjectPropertyList;
 - (NSArray *)getObjectIvarList;
+#pragma mark - 通过对象返回一个NSDictionary，键是属性名称，值是属性值。
+- (NSDictionary *)getObjectData;
+- (id)getObjectInternal;
+- (NSString *)customDescription;
 
 - (id)copyObject;
 - (id)weakObject;

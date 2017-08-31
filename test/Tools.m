@@ -1500,6 +1500,39 @@ NSString* getPartString(NSString *string,NSString *aString,NSString *bString)
     return value;
 }
 
++ (NSArray *)encodeList
+{
+    NSArray *list = @[@(NSASCIIStringEncoding),		/* 0..127 only */
+                      @(NSNEXTSTEPStringEncoding),
+                      @(NSJapaneseEUCStringEncoding),
+                      @(NSUTF8StringEncoding),
+                      @(NSISOLatin1StringEncoding),
+                      @(NSSymbolStringEncoding),
+                      @(NSNonLossyASCIIStringEncoding),
+                      @(NSShiftJISStringEncoding),          /* kCFStringEncodingDOSJapanese */
+                      @(NSISOLatin2StringEncoding),
+                      @(NSUnicodeStringEncoding),
+                      @(NSWindowsCP1251StringEncoding),    /* Cyrillic; same as AdobeStandardCyrillic */
+                      @(NSWindowsCP1252StringEncoding),    /* WinLatin1 */
+                      @(NSWindowsCP1253StringEncoding),    /* Greek */
+                      @(NSWindowsCP1254StringEncoding),    /* Turkish */
+                      @(NSWindowsCP1250StringEncoding),    /* WinLatin2 */
+                      @(NSISO2022JPStringEncoding ),        /* ISO 2022 Japanese encoding for e-mail */
+                      @(NSMacOSRomanStringEncoding),
+                      
+                      @(NSUTF16StringEncoding),      /* An alias for NSUnicodeStringEncoding */
+                      
+                      @(NSUTF16BigEndianStringEncoding),          /* NSUTF16StringEncoding encoding with explicit endianness specified */
+                      @(NSUTF16LittleEndianStringEncoding),       /* NSUTF16StringEncoding encoding with explicit endianness specified */
+                      
+                      @(NSUTF32StringEncoding),
+                      @(NSUTF32BigEndianStringEncoding),          /* NSUTF32StringEncoding encoding with explicit endianness specified */
+                      @(NSUTF32LittleEndianStringEncoding)        /* NSUTF32StringEncoding encoding with explicit endianness specified */
+                      ];
+    
+    return list;
+}
+
 - (NSString *) phonetic
 {
     NSMutableString *source = [self mutableCopy];
@@ -1548,6 +1581,28 @@ NSString* getPartString(NSString *string,NSString *aString,NSString *bString)
     return outStr;
 }
 
++ (NSString *)formatWithFloat:(CGFloat)num length:(int)l
+{
+    if (l <= 0) {
+        return nil;
+    }
+    
+    int n = 1;
+    NSString *content = [NSString format:@"%%-%d.%df",l-n,n];
+    while (1) {
+        if (num > pow(10, l-n)) {
+            n--;
+            break;
+        }
+        n++;
+    }
+    
+    content = [NSString format:@"%%-%d.%df",l-n,n];
+    NSString *result = [NSString format:content,num];
+    
+    return result;
+}
+
 #pragma mark 十六进制字符转data
 - (NSData *)dataByHexString
 {
@@ -1584,6 +1639,10 @@ NSString* getPartString(NSString *string,NSString *aString,NSString *bString)
 
 - (NSDictionary *)convertToDic
 {
+    if (![self containsString:@"{"] || ![self containsString:@"}"]) {
+        NSLog(@"非JSON字符串，%@",self);
+        return nil;
+    }
     NSError *error = nil;
     NSData *data = [self dataUsingEncoding:NSUTF8StringEncoding];
     NSDictionary *jsonDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:&error];
@@ -1608,6 +1667,24 @@ NSString* getPartString(NSString *string,NSString *aString,NSString *bString)
     const char *cString = [self cStringUsingEncoding:NSUTF8StringEncoding];
     NSString *desc = [NSString stringWithCString:cString encoding:NSNonLossyASCIIStringEncoding];
     return desc;
+}
+
+#pragma mark 使用MD5加密
+- (NSString *)encryptUsingMD5
+{
+    const char *cStr = [self UTF8String];
+    unsigned char result[16];
+    // This is the md5 call
+    CC_MD5(cStr, (int)strlen(cStr), result); // CommonCrypto/CommonDigest.h
+    NSString *value = [NSString stringWithFormat:
+                       @"%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x",
+                       result[0], result[1], result[2], result[3],
+                       result[4], result[5], result[6], result[7],
+                       result[8], result[9], result[10], result[11],
+                       result[12], result[13], result[14], result[15]
+                       ];
+    
+    return value;
 }
 
 - (NSArray *)componentSeparatedByString:(NSString *)key
@@ -1676,6 +1753,22 @@ NSString* getPartString(NSString *string,NSString *aString,NSString *bString)
     [dateFormatter setDateFormat:(format ? format : @"yyyy-MM-dd HH:mm:ss")];
     NSDate *date = [dateFormatter dateFromString:strDate];
     return date;
+}
+
+- (NSString *)stringForFormat
+{
+    NSString *tempStr1 = [self stringByReplacingOccurrencesOfString:@"\\u" withString:@"\\U"];
+    NSString *tempStr2 = [tempStr1 stringByReplacingOccurrencesOfString:@"\"" withString:@"\\\""];
+    NSString *tempStr3 = [[@"\"" stringByAppendingString:tempStr2] stringByAppendingString:@"\""];
+    NSData *tempData = [tempStr3 dataUsingEncoding:NSUTF8StringEncoding];
+    
+    NSError *error = nil;
+    NSString *str = [NSPropertyListSerialization propertyListWithData:tempData options:NSPropertyListImmutable format:NULL error:&error];
+    if (error) {
+        NSLog(@"format : %@",error.localizedDescription);
+    }
+    
+    return str;
 }
 
 //获取第一个字符
@@ -2017,6 +2110,13 @@ NSString* getPartString(NSString *string,NSString *aString,NSString *bString)
     return desc;
 }
 
+- (NSString *)stringForFormat
+{
+    NSString *str = [self.description stringForFormat];
+    
+    return str;
+}
+
 @end
 
 #pragma mark - --------NSDate------------------------
@@ -2082,6 +2182,89 @@ NSString* getPartString(NSString *string,NSString *aString,NSString *bString)
     return list;
 }
 
+#pragma mark - 通过对象返回一个NSDictionary，键是属性名称，值是属性值。
+- (NSDictionary *)getObjectData
+{
+    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    unsigned int propsCount;
+    objc_property_t *props = class_copyPropertyList([self class], &propsCount);
+    for(int i = 0;i < propsCount; i++)
+    {
+        objc_property_t prop = props[i];
+        
+        NSString *propName = [NSString stringWithUTF8String:property_getName(prop)];
+        id value = [self valueForKey:propName];
+        if(value == nil)
+        {
+            value = [NSNull null];
+        }
+        else
+        {
+            value = [value getObjectInternal];
+        }
+        [dic setObject:value forKey:propName];
+    }
+    return dic;
+}
+
+- (id)getObjectInternal
+{
+    if([self isKindOfClass:[NSString class]]
+       || [self isKindOfClass:[NSNumber class]]
+       || [self isKindOfClass:[NSNull class]])
+    {
+        return self;
+    }
+    
+    if([self isKindOfClass:[NSArray class]])
+    {
+        NSArray *objarr = (NSArray *)self;
+        NSMutableArray *arr = [NSMutableArray arrayWithCapacity:objarr.count];
+        for(int i = 0;i < objarr.count; i++)
+        {
+            [arr setObject:[[objarr objectAtIndex:i] getObjectInternal] atIndexedSubscript:i];
+        }
+        return arr;
+    }
+    
+    if([self isKindOfClass:[NSDictionary class]])
+    {
+        NSDictionary *objdic = (NSDictionary *)self;
+        NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithCapacity:[objdic count]];
+        for(NSString *key in objdic.allKeys)
+        {
+            [dic setObject:[[objdic objectForKey:key] getObjectInternal] forKey:key];
+        }
+        return dic;
+    }
+    return [self getObjectData];
+}
+
+- (NSString *)customDescription
+{
+    if ([self isKindOfClass:[NSDictionary class]]) {
+        return [(NSDictionary *)self stringForFormat];
+    }
+    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    unsigned int propsCount;
+    objc_property_t *props = class_copyPropertyList([self class], &propsCount);
+    for(int i = 0;i < propsCount; i++)
+    {
+        objc_property_t prop = props[i];
+        
+        NSString *propName = [NSString stringWithUTF8String:property_getName(prop)];
+        id value = [self valueForKey:propName];
+        if(value == nil)
+        {
+            value = [NSNull null];
+        }
+        
+        [dic setObject:value forKey:propName];
+    }
+    NSString *content = [dic stringForFormat];
+    return content;
+}
+
 - (id)copyObject
 {
     id obj = [[self.class alloc] init];
@@ -2096,8 +2279,8 @@ NSString* getPartString(NSString *string,NSString *aString,NSString *bString)
 
 - (id)weakObject
 {
-    __weak id obj = self;
-    return obj;
+    __weak typeof(self) weakSelf = self;
+    return weakSelf;
 }
 
 @end
