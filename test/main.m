@@ -93,13 +93,20 @@ NSArray *compareArray(NSArray *arr1,NSArray *arr2)
 
 int main(int argc, const char * argv[])
 {
-    printHead(@"");
+    printHead(@"/Volumes/Apple/Applications/IOS_CloudHome/CloudHome/Images/common/绿色背景图@2x.png");
     @autoreleasepool {
         
 //        [Ping PingDomain:@"www.163.com"];//183.61.67.88
 //        [Ping PingDomain:@"www.baidu.com"];//180.97.33.107
 //        [Ping PingDomain:@"192.168.11.169" count:3];
         
+        CFAbsoluteTime start = CFAbsoluteTimeGetCurrent();
+        
+        CFStringRef lNewRoute = CFSTR("Unknown");
+        NSLog(@"Time: %@",lNewRoute);
+        
+    
+        NSLog(@"Time: %f", CFAbsoluteTimeGetCurrent() - start);
         
     }
     

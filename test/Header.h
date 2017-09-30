@@ -35,3 +35,7 @@
 #import "Brands.h"
 #import "UrlInfo.h"
 #import "Request.h"
+
+//获取一段时间间隔
+#define kStartTime CFAbsoluteTime start = CFAbsoluteTimeGetCurrent();
+#define kEndTime   NSLog(@"Time: %f", CFAbsoluteTimeGetCurrent() - start)
