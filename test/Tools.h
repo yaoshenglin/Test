@@ -11,7 +11,7 @@
 #import <Foundation/Foundation.h>
 #import "TestHeads.h"
 
-typedef NSString * (^WriteBlock)();
+typedef NSString * (^WriteBlock)(void);
 typedef CF_ENUM(NSStringEncoding, CFStringBuilt) {
     GBEncoding = kCFStringEncodingGB_18030_2000 /* kTextEncodingUnicodeDefault + kUnicodeUTF32LEFormat */
 };
@@ -223,6 +223,10 @@ NSString* getPartString(NSString *string,NSString *aString,NSString *bString);
 
 //写入文件结尾
 - (void)writeToEndOfFileAtPath:(NSString *)path headContent:(WriteBlock)block;
+
+// 截取字符串方法封装
+// 截取字符串方法封装
+- (NSString *)subStringFrom:(NSString *)startString to:(NSString *)endString;
 
 @end
 

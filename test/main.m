@@ -26,10 +26,6 @@ typedef NS_OPTIONS(NSUInteger, TQRichTextRunTypeList)
 
 #import <Foundation/Foundation.h>
 #import "Header.h"
-#include <unistd.h>
-#include <sys/types.h>
-#include <stdio.h>
-#include <stdlib.h>
 #import "Weather.h"
 #import "Temp.h"
 #import "NSXMLParser+Cobbler.h"
@@ -102,9 +98,17 @@ int main(int argc, const char * argv[])
         
         CFAbsoluteTime start = CFAbsoluteTimeGetCurrent();
         
-        CFStringRef lNewRoute = CFSTR("Unknown");
-        NSLog(@"Time: %@",lNewRoute);
+        char a[100] = "";
+        char *b = malloc(sizeof(char));
         
+        for (int i=0; i<20; i++) {
+            a[i] = 'a' + i;
+        }
+        
+        strcpy(b, a);
+        
+        NSLog(@"b = %s",b);
+        NSLog(@"value = %Lg",powl(3, 2.0959032742893845));
     
         NSLog(@"Time: %f", CFAbsoluteTimeGetCurrent() - start);
         

@@ -10,3 +10,5 @@ welcome = "欢迎";
 menu_login_init = "登录后可体验更多功能";
 SendOperationTimedOut = "Send operation timed out";
 ReceiveOperationTimedOut = "Receive operation timed out";
+
+Confirm = "Confirm";

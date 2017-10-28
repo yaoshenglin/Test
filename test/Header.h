@@ -20,6 +20,11 @@
 #include <sys/sysctl.h>
 #include <mach-o/dyld.h>
 #include <pthread.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <asl.h>
 
 //#import "GDataXMLNode.h"
 #import "DeviceModel.h"
@@ -35,6 +40,7 @@
 #import "Brands.h"
 #import "UrlInfo.h"
 #import "Request.h"
+#import "FileManager.h"
 
 //获取一段时间间隔
 #define kStartTime CFAbsoluteTime start = CFAbsoluteTimeGetCurrent();

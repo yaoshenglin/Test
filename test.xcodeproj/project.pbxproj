@@ -8,9 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		1423F6E21CCB14B1005310DE /* UrlInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1423F6E11CCB14B1005310DE /* UrlInfo.m */; };
+		143B20761FA099DB006BB088 /* EZOpen.m in Sources */ = {isa = PBXBuildFile; fileRef = 143B20751FA099DB006BB088 /* EZOpen.m */; };
 		1452F3741DD5C2E8009628AF /* NSXMLParser+Cobbler.m in Sources */ = {isa = PBXBuildFile; fileRef = 1452F3731DD5C2E8009628AF /* NSXMLParser+Cobbler.m */; };
 		1470D9141DCADEE70039A452 /* Weather.m in Sources */ = {isa = PBXBuildFile; fileRef = 1470D9131DCADEE70039A452 /* Weather.m */; };
 		1470D9171DCAE1830039A452 /* Temp.m in Sources */ = {isa = PBXBuildFile; fileRef = 1470D9161DCAE1830039A452 /* Temp.m */; };
+		147F702B1F99EADA00EA8C28 /* FileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 147F702A1F99EADA00EA8C28 /* FileManager.m */; };
 		14FC17911DD317AC007BFB4E /* Request.m in Sources */ = {isa = PBXBuildFile; fileRef = 14FC17901DD317AC007BFB4E /* Request.m */; };
 		8E4BC55E18BF30D90089158C /* Encoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E4BC55D18BF30D90089158C /* Encoder.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		8E5B30A4187DBE22007A9F86 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E5B30A3187DBE22007A9F86 /* AddressBook.framework */; };
@@ -58,12 +60,16 @@
 		1423F6DF1CCB1435005310DE /* Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Header.h; sourceTree = "<group>"; };
 		1423F6E01CCB14B1005310DE /* UrlInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UrlInfo.h; sourceTree = "<group>"; };
 		1423F6E11CCB14B1005310DE /* UrlInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UrlInfo.m; sourceTree = "<group>"; };
+		143B20741FA099DB006BB088 /* EZOpen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EZOpen.h; sourceTree = "<group>"; };
+		143B20751FA099DB006BB088 /* EZOpen.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EZOpen.m; sourceTree = "<group>"; };
 		1452F3721DD5C2E8009628AF /* NSXMLParser+Cobbler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSXMLParser+Cobbler.h"; sourceTree = "<group>"; };
 		1452F3731DD5C2E8009628AF /* NSXMLParser+Cobbler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSXMLParser+Cobbler.m"; sourceTree = "<group>"; };
 		1470D9121DCADEE70039A452 /* Weather.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Weather.h; sourceTree = "<group>"; };
 		1470D9131DCADEE70039A452 /* Weather.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Weather.m; sourceTree = "<group>"; };
 		1470D9151DCAE1830039A452 /* Temp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Temp.h; sourceTree = "<group>"; };
 		1470D9161DCAE1830039A452 /* Temp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Temp.m; sourceTree = "<group>"; };
+		147F70291F99EADA00EA8C28 /* FileManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FileManager.h; sourceTree = "<group>"; };
+		147F702A1F99EADA00EA8C28 /* FileManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FileManager.m; sourceTree = "<group>"; };
 		14A0E5E11DA8852000CC08B5 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		14A0E5E31DA8852800CC08B5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		14FC178F1DD317AC007BFB4E /* Request.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Request.h; sourceTree = "<group>"; };
@@ -136,6 +142,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		143B20731FA099BB006BB088 /* EZOpen */ = {
+			isa = PBXGroup;
+			children = (
+				143B20741FA099DB006BB088 /* EZOpen.h */,
+				143B20751FA099DB006BB088 /* EZOpen.m */,
+			);
+			path = EZOpen;
+			sourceTree = "<group>";
+		};
 		8E9DC309187AEF6200CB5109 = {
 			isa = PBXGroup;
 			children = (
@@ -184,6 +199,8 @@
 				E26F7AD51ABFB8FA001B4E3C /* DeviceModel.m */,
 				E2AF3ABF1B12B9DD00EA0333 /* Ping.h */,
 				E2AF3AC01B12B9DD00EA0333 /* Ping.m */,
+				147F70291F99EADA00EA8C28 /* FileManager.h */,
+				147F702A1F99EADA00EA8C28 /* FileManager.m */,
 				1423F6E01CCB14B1005310DE /* UrlInfo.h */,
 				1423F6E11CCB14B1005310DE /* UrlInfo.m */,
 				E2C7A02C1B44E5130011EC75 /* Brands.h */,
@@ -196,6 +213,7 @@
 				1470D9161DCAE1830039A452 /* Temp.m */,
 				1452F3721DD5C2E8009628AF /* NSXMLParser+Cobbler.h */,
 				1452F3731DD5C2E8009628AF /* NSXMLParser+Cobbler.m */,
+				143B20731FA099BB006BB088 /* EZOpen */,
 				E22655BA1904F6360058DEA6 /* Tools */,
 				8E9DC31A187AEF6200CB5109 /* Supporting Files */,
 			);
@@ -267,7 +285,7 @@
 		8E9DC30A187AEF6200CB5109 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0820;
+				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = Yinhaibo;
 			};
 			buildConfigurationList = 8E9DC30D187AEF6200CB5109 /* Build configuration list for PBXProject "test" */;
@@ -301,9 +319,11 @@
 				E238D53318F3EBE600A125F2 /* Tools.m in Sources */,
 				E26F7AD61ABFB8FA001B4E3C /* DeviceModel.m in Sources */,
 				E241EEE118E12A49009259AB /* Polymorphism.m in Sources */,
+				147F702B1F99EADA00EA8C28 /* FileManager.m in Sources */,
 				1452F3741DD5C2E8009628AF /* NSXMLParser+Cobbler.m in Sources */,
 				1470D9171DCAE1830039A452 /* Temp.m in Sources */,
 				8E7F7C8518CFEE7700595CFE /* NSData+Base64.m in Sources */,
+				143B20761FA099DB006BB088 /* EZOpen.m in Sources */,
 				E238D53018F3EBCC00A125F2 /* DB.m in Sources */,
 				E2296A95190A0A0A00F78507 /* DeleteFile.m in Sources */,
 				8E7F7C8618CFEE7700595CFE /* StringEncryption.m in Sources */,
@@ -346,14 +366,20 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -390,14 +416,20 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;

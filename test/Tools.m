@@ -1607,12 +1607,12 @@ NSString* getPartString(NSString *string,NSString *aString,NSString *bString)
 - (NSData *)dataByHexString
 {
     NSString *str = [self stringByReplacingOccurrencesOfString:@" " withString:@""];
-    char const *myBuffer = str.UTF8String;
-    NSInteger charCount = strlen(myBuffer);
+    char const *myBuffer = str.UTF8String;//bytes
+    NSInteger charCount = strlen(myBuffer);//length*2
     if (charCount %2 != 0) {
         return nil;
     }
-    NSInteger byteCount = charCount/2;
+    NSInteger byteCount = charCount/2;//length
     uint8_t *bytes = malloc(byteCount);
     for (int i=0; i<byteCount; i++) {
         unsigned int value;
@@ -1899,6 +1899,53 @@ NSString* getPartString(NSString *string,NSString *aString,NSString *bString)
     
     //关闭读写文件
     [outFile closeFile];
+}
+
+// 截取字符串方法封装
+// 截取字符串方法封装
+- (NSString *)subStringFrom:(NSString *)startString to:(NSString *)endString
+{
+    if (!startString) {
+        return nil;
+    }
+    NSRange startRange = [self rangeOfString:startString];
+    
+    if (startRange.location == NSNotFound) {
+        return nil;
+    }
+    
+    NSInteger startIndex = startRange.location+startRange.length;
+    NSString *value = [self substringFromIndex:startIndex];
+    
+    if (!endString) {
+        return value;
+    }
+    
+    NSRange endRange = [value rangeOfString:endString];
+    
+    if (endRange.location == NSNotFound) {
+        return nil;
+    }
+    
+    value = [value substringToIndex:endRange.location];
+    
+//    startString = startString ?: @"";
+//    endString = endString ?: @"";
+//    
+//    NSArray *list = [self componentsSeparatedByString:startString];
+//    if (list.count < 2) {
+//        return nil;
+//    }
+//    
+//    NSString *value = [list objectAtIndex:1];
+//    list = [value componentsSeparatedByString:endString];
+//    if (list.count == 0) {
+//        return nil;
+//    }
+//    
+//    value = list.firstObject;
+    
+    return value;
 }
 
 @end
