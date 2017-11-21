@@ -98,17 +98,11 @@ int main(int argc, const char * argv[])
         
         CFAbsoluteTime start = CFAbsoluteTimeGetCurrent();
         
-        char a[100] = "";
-        char *b = malloc(sizeof(char));
-        
-        for (int i=0; i<20; i++) {
-            a[i] = 'a' + i;
-        }
-        
-        strcpy(b, a);
-        
-        NSLog(@"b = %s",b);
-        NSLog(@"value = %Lg",powl(3, 2.0959032742893845));
+        NSDictionary *dic = @{@"A":@"1",@"B":@"2",@"C":@"3"};
+        NSLog(@"%@",[dic objectsForKeys:@[@"A",@"B"] notFoundMarker:@""]);
+        NSMutableDictionary *dicData = [NSMutableDictionary dictionaryWithDictionary:dic];
+        [dicData removeObjectForKey:@"A"];
+        NSLog(@"%@",[dic stringForFormat]);
     
         NSLog(@"Time: %f", CFAbsoluteTimeGetCurrent() - start);
         
