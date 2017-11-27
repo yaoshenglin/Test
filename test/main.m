@@ -98,11 +98,10 @@ int main(int argc, const char * argv[])
         
         CFAbsoluteTime start = CFAbsoluteTimeGetCurrent();
         
-        NSDictionary *dic = @{@"A":@"1",@"B":@"2",@"C":@"3"};
-        NSLog(@"%@",[dic objectsForKeys:@[@"A",@"B"] notFoundMarker:@""]);
-        NSMutableDictionary *dicData = [NSMutableDictionary dictionaryWithDictionary:dic];
-        [dicData removeObjectForKey:@"A"];
-        NSLog(@"%@",[dic stringForFormat]);
+        NSString *dic = @"2079E2";
+        NSString *dicUpper = [dic uppercaseString];
+        
+        NSLog(@"%@",dicUpper);
     
         NSLog(@"Time: %f", CFAbsoluteTimeGetCurrent() - start);
         
