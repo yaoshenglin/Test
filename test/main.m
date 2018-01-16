@@ -98,11 +98,12 @@ int main(int argc, const char * argv[])
         
         CFAbsoluteTime start = CFAbsoluteTimeGetCurrent();
         
-        NSString *path = @"/Volumes/Apple/iOS工程/ImgSize/ImgSize/Image";
-        NSArray *list = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:path error:nil];
-        NSString *content = [list componentsJoinedByString:@","];
+        NSString *host_mac = @"A5A1DA34FE18\n";
         
-        NSLog(@"%@",content);
+        for (int i=0; i<host_mac.length; i++) {
+            unichar value = [host_mac characterAtIndex:i];
+            NSLog(@"value = %c",value);
+        }
     
         NSLog(@"Time: %f", CFAbsoluteTimeGetCurrent() - start);
         
