@@ -9,6 +9,22 @@
 #import <Foundation/Foundation.h>
 #import "EnumTypes.h"
 
+#pragma mark 指纹锁功能参数类型(Enum_Fingerpring_FuncType)
+typedef NS_ENUM(int, Enum_Fingerpring_FuncType) {
+    FuncType_APP                 = 1 << 0,//APP开锁
+    FuncType_Fingerpring         = 1 << 1,//指纹开锁
+    FuncType_Card                = 1 << 2,//刷卡开锁
+    FuncType_Password            = 1 << 3 //密码开锁
+};
+
+#pragma mark 指纹锁功能参数设置标志(Enum_PaSetFlag)
+typedef NS_ENUM(int, Enum_PaSetFlag) {
+    PaSetFlag_Voice             = 1 << 0,//门锁开门语音设置
+    PaSetFlag_Lock              = 1 << 1,//门锁常开功能设置
+    PaSetFlag_XiePo             = 1 << 2,//门锁胁迫报警标志
+    PaSetFlag_Other             = 1 << 3 //其它
+};
+
 @interface DeviceModel : NSObject
 
 @property (assign, nonatomic) int ID; //本地记录ID

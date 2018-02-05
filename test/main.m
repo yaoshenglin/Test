@@ -98,13 +98,11 @@ int main(int argc, const char * argv[])
         
         CFAbsoluteTime start = CFAbsoluteTimeGetCurrent();
         
-        NSString *host_mac = @"A5A1DA34FE18\n";
-        
-        for (int i=0; i<host_mac.length; i++) {
-            unichar value = [host_mac characterAtIndex:i];
-            NSLog(@"value = %c",value);
+        NSString *host = @"123456";
+        if ([host isEqual:@"123456"]) {
+            NSOK;
         }
-    
+        
         NSLog(@"Time: %f", CFAbsoluteTimeGetCurrent() - start);
         
     }
